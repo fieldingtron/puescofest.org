@@ -50,6 +50,32 @@ const schema = defineSchema({
         },
       },
     },
+    {
+      label: "Bands",
+      name: "bands",
+      path: "content/band",
+      fields: [
+        {
+          type: "string",
+          label: "Title",
+          name: "title",
+        },
+        {
+          type: "string",
+          label: "Blog Post Body",
+          name: "body",
+          isBody: true,
+          ui: {
+            component: "textarea",
+          },
+        },
+      ],
+      ui: {
+        router: ({ document }) => {
+          return `/bands/${document._sys.filename}`;
+        },
+      },
+    },
   ],
 });
 
