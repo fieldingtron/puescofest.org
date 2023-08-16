@@ -1,5 +1,5 @@
 import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { Layout } from "../components/Layout";
+import { HomepageLayout, Layout } from "../components/HomepageLayout";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { client } from "../tina/__generated__/client";
 
@@ -12,12 +12,15 @@ export default function Home(props) {
   });
 
   const content = data.page.body;
+  const facebook = data.page.facebook;
+
   return (
-    <Layout>
+    <HomepageLayout>
+      <h2 data-tina-field={tinaField(data.page, "facebook")}> {facebook}</h2>
       <div data-tina-field={tinaField(data.page, "body")}>
         <TinaMarkdown content={content} />
       </div>
-    </Layout>
+    </HomepageLayout>
   );
 }
 

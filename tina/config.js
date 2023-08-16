@@ -9,6 +9,42 @@ const schema = defineSchema({
       format: "mdx",
       fields: [
         {
+          type: "string",
+          label: "Instagram URL",
+          name: "instagram",
+        },
+        {
+          type: "string",
+          label: "Facebook Link",
+          name: "facebook",
+        },
+        {
+          label: "Testimonial",
+          name: "testimonial",
+          type: "object",
+          fields: [
+            {
+              label: "Author",
+              name: "author",
+              type: "string",
+            },
+            {
+              label: "Role",
+              name: "role",
+              type: "string",
+            },
+            {
+              label: "Quote",
+              name: "quote",
+              type: "string",
+              ui: {
+                component: "textarea",
+              },
+            },
+          ],
+        },
+
+        {
           name: "body",
           label: "Main Content",
           type: "rich-text",
@@ -57,8 +93,23 @@ const schema = defineSchema({
       fields: [
         {
           type: "string",
-          label: "Title",
-          name: "title",
+          label: "Name",
+          name: "name",
+        },
+        {
+          type: "string",
+          label: "Insta",
+          name: "instagram",
+        },
+        {
+          type: "string",
+          label: "Face",
+          name: "facebook",
+        },
+        {
+          type: "image",
+          label: "Hero image",
+          name: "imgSrc",
         },
         {
           type: "string",
