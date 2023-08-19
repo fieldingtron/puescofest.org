@@ -1,4 +1,6 @@
 import React from "react";
+import { useTina } from "tinacms/dist/react";
+import { client } from "../tina/__generated__/client";
 
 export default function LineUp() {
   return (
@@ -22,6 +24,8 @@ export default function LineUp() {
             <div className="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
               <div className="row">
                 <div className="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                  <h4>List of bands</h4>
+
                   <a href="#lineup-1" className="open-popup-link">
                     <div className="sphere">
                       <h4>Ana Tijoux</h4>

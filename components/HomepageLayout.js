@@ -5,7 +5,10 @@ import LineUp from "./LineUp";
 import NavBar from "./NavBar";
 import Script from "next/script";
 
+import { tinaField, useTina } from "tinacms/dist/react";
+
 export const HomepageLayout = (props) => {
+  console.log(props);
   return (
     <>
       <Head>
@@ -36,7 +39,14 @@ export const HomepageLayout = (props) => {
         {" | "}
         <Link href="/posts">Posts</Link>
       </header>
-      <main>{props.children}</main>
+      <main>
+        {props.children}
+
+        <h1>insta</h1>
+        <h2 data-tina-field={tinaField(props.pagez, "instagram")}>
+          {props.pagez.instagram}
+        </h2>
+      </main>
       {/* <Slider /> */}
       <NavBar />
       <LineUp />

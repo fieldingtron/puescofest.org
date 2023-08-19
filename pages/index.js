@@ -13,10 +13,19 @@ export default function Home(props) {
 
   const content = data.page.body;
   const facebook = data.page.facebook;
+  const bands = data.page.bands;
+  console.log(data.page);
 
   return (
-    <HomepageLayout>
-      <h2 data-tina-field={tinaField(data.page, "facebook")}> {facebook}</h2>
+    <HomepageLayout pagez={data.page}>
+      <h2 data-tina-field={tinaField(data.page, "facebook")}>{facebook}</h2>
+
+      <ul>
+        {bands.map((band) => (
+          <li data-tina-field={tinaField(band, "musician")}>{band.musician}</li>
+        ))}
+      </ul>
+
       <div data-tina-field={tinaField(data.page, "body")}>
         <TinaMarkdown content={content} />
       </div>

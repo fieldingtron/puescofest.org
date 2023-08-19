@@ -19,18 +19,20 @@ const schema = defineSchema({
           name: "facebook",
         },
         {
-          label: "Testimonial",
-          name: "testimonial",
+          label: "Bands",
+          name: "bands",
           type: "object",
+          list: true,
+
           fields: [
             {
-              label: "Author",
-              name: "author",
+              label: "Musician",
+              name: "musician",
               type: "string",
             },
             {
-              label: "Role",
-              name: "role",
+              label: "Instagram",
+              name: "instagram",
               type: "string",
             },
             {
