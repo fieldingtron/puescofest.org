@@ -4,7 +4,7 @@ export default function NavBar() {
   return (
     <>
       <section className="second-section" id="video">
-        <nav className="navbar navbar-default ">
+        <nav className="navbar navbar-default">
           <div className="container smallernav">
             <div className="navbar-header">
               <button
@@ -27,9 +27,9 @@ export default function NavBar() {
               id="bs-example-navbar-collapse-1"
             >
               <ul className="nav navbar-nav navbar-right">
-                <li>
+                <li key="fblink">
                   <a
-                    href=" https://www.facebook.com/puescofest/"
+                    href="https://www.facebook.com/puescofest/"
                     target="_blank"
                   >
                     <i
@@ -38,7 +38,7 @@ export default function NavBar() {
                     ></i>
                   </a>
                 </li>
-                <li>
+                <li key="instalink">
                   <a
                     href="https://www.instagram.com/puescofest/"
                     target="_blank"
@@ -49,7 +49,7 @@ export default function NavBar() {
               </ul>
               <ul className="nav navbar-nav " id="main-nav-wrap">
                 <a className="navbar-brand" href="/"></a>
-                <li className="current">
+                <li className="current" key="somos">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -59,7 +59,7 @@ export default function NavBar() {
                     Somos
                   </a>
                 </li>
-                <li>
+                <li key="lineup">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -79,7 +79,7 @@ export default function NavBar() {
                     Kayak
                   </a>
                 </li>
-                <li>
+                <li key="comollegar">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -89,7 +89,7 @@ export default function NavBar() {
                     Como Llegar
                   </a>
                 </li>
-                <li>
+                <li key="camping">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -99,7 +99,7 @@ export default function NavBar() {
                     Camping
                   </a>
                 </li>
-                <li>
+                <li key="buenvivir">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -109,7 +109,7 @@ export default function NavBar() {
                     Buen Vivir
                   </a>
                 </li>
-                <li>
+                <li key="tickets">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -119,7 +119,7 @@ export default function NavBar() {
                     Tickets
                   </a>
                 </li>
-                <li>
+                <li key="quetraer">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -130,7 +130,7 @@ export default function NavBar() {
                   </a>
                 </li>
 
-                <li>
+                <li key="contacto">
                   <a
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
@@ -142,24 +142,22 @@ export default function NavBar() {
                 </li>
               </ul>
               <ul className="nav navbar-nav navbar-right mobile-nav">
-                <li>
+                <li key="mob-facebok">
                   <a
                     href=" https://www.facebook.com/puescofest/"
                     target="_blank"
                   >
-                    {" "}
                     <i
                       className="fa fa-facebook-official fa-2"
                       aria-hidden="true"
                     ></i>
                   </a>
                 </li>
-                <li>
+                <li key="mob-insta">
                   <a
                     href="https://www.instagram.com/puescofest/"
                     target="_blank"
                   >
-                    {" "}
                     <i className="fa fa-instagram" aria-hidden="true"></i>
                   </a>
                 </li>

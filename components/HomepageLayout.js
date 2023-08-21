@@ -6,9 +6,10 @@ import NavBar from "./NavBar";
 import Script from "next/script";
 
 import { tinaField, useTina } from "tinacms/dist/react";
+import Contact from "./Contact";
 
 export const HomepageLayout = (props) => {
-  console.log(props);
+  //console.log(props);
   return (
     <>
       <Head>
@@ -34,23 +35,23 @@ export const HomepageLayout = (props) => {
         </div>
       </section>
 
-      <header>
+      {/* <header>
         <Link href="/">Home</Link>
         {" | "}
         <Link href="/posts">Posts</Link>
-      </header>
-      <main>
+      </header> */}
+      {/* <main>
         {props.children}
 
         <h1>insta</h1>
         <h2 data-tina-field={tinaField(props.pagez, "instagram")}>
           {props.pagez.instagram}
         </h2>
-      </main>
+      </main> */}
       {/* <Slider /> */}
       <NavBar />
-      <LineUp />
-
+      <LineUp pagez={props.pagez} />
+      <Contact />
       <footer>
         <div className="container">
           <div className="row">
@@ -70,8 +71,8 @@ export const HomepageLayout = (props) => {
         </div>
       </footer>
       <Script src="/js/puescofest.js" strategy="beforeInteractive" />
-      {/* <Script src="/js/jqBootstrapValidation.js" strategy="lazyOnload" />
-      <Script src="/js/contact_me.js" strategy="lazyOnload" /> */}
+      <Script src="/js/jqBootstrapValidation.js" strategy="beforeInteractive" />
+      <Script src="/js/contact_me.js" strategy="lazyOnload" />
     </>
   );
 };

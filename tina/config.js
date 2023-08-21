@@ -26,8 +26,8 @@ const schema = defineSchema({
 
           fields: [
             {
-              label: "Musician",
-              name: "musician",
+              label: "Name",
+              name: "name",
               type: "string",
             },
             {
@@ -36,12 +36,34 @@ const schema = defineSchema({
               type: "string",
             },
             {
-              label: "Quote",
-              name: "quote",
+              label: "Soundcloud",
+              name: "soundcloud",
               type: "string",
-              ui: {
-                component: "textarea",
-              },
+            },
+            {
+              label: "Facebook",
+              name: "facebook",
+              type: "string",
+            },
+            {
+              label: "Origin",
+              name: "origin",
+              type: "string",
+            },
+            {
+              label: "Year",
+              name: "year",
+              type: "string",
+            },
+            {
+              label: "Style",
+              name: "style",
+              type: "string",
+            },
+            {
+              type: "image",
+              label: "Hero image",
+              name: "imgSrc",
             },
           ],
         },
@@ -85,47 +107,6 @@ const schema = defineSchema({
       ui: {
         router: ({ document }) => {
           return `/posts/${document._sys.filename}`;
-        },
-      },
-    },
-    {
-      label: "Bands",
-      name: "bands",
-      path: "content/band",
-      fields: [
-        {
-          type: "string",
-          label: "Name",
-          name: "name",
-        },
-        {
-          type: "string",
-          label: "Insta",
-          name: "instagram",
-        },
-        {
-          type: "string",
-          label: "Face",
-          name: "facebook",
-        },
-        {
-          type: "image",
-          label: "Hero image",
-          name: "imgSrc",
-        },
-        {
-          type: "string",
-          label: "Blog Post Body",
-          name: "body",
-          isBody: true,
-          ui: {
-            component: "textarea",
-          },
-        },
-      ],
-      ui: {
-        router: ({ document }) => {
-          return `/bands/${document._sys.filename}`;
         },
       },
     },
