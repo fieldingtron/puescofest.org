@@ -1,5 +1,71 @@
 import { defineConfig, defineSchema } from "tinacms";
 
+const headingBlock = {
+  name: "Heading",
+  label: "Heading",
+  ui: {
+    defaultItem: {
+      text: "Lorem ipsum dolo",
+    },
+  },
+  fields: [
+    {
+      type: "string",
+      label: "Heading",
+      name: "heading",
+    },
+  ],
+};
+
+const contentBlock = {
+  name: "content",
+  label: "Content",
+  ui: {
+    defaultItem: {
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.",
+    },
+  },
+  fields: [
+    {
+      type: "string",
+      ui: {
+        component: "textarea",
+      },
+      label: "Text",
+      name: "text",
+    },
+  ],
+};
+
+const imageBlock = {
+  name: "image",
+  label: "Image",
+  fields: [
+    {
+      type: "image",
+      label: "Image",
+      name: "imgSrc",
+    },
+  ],
+};
+
+const imageBlock2 = {
+  name: "image",
+  label: "Image",
+  ui: {
+    defaultItem: {
+      imgSrc: "/uploads/tina.jpeg",
+    },
+  },
+  fields: [
+    {
+      type: "image",
+      label: "Image",
+      name: "imgSrc",
+    },
+  ],
+};
+
 const schema = defineSchema({
   collections: [
     {
@@ -8,21 +74,38 @@ const schema = defineSchema({
       path: "content/page",
       format: "mdx",
       fields: [
+        // {
+        //   type: "string",
+        //   label: "Facebook Link",
+        //   name: "facebook",
+        // },
         {
-          type: "string",
-          label: "Instagram URL",
-          name: "instagram",
-        },
-        {
-          type: "string",
-          label: "Facebook Link",
-          name: "facebook",
+          type: "object",
+          list: true,
+          name: "intro",
+          label: "About Us / Intro",
+          templates: [imageBlock, contentBlock, headingBlock],
         },
         {
           label: "Bands",
           name: "bands",
           type: "object",
           list: true,
+          ui: {
+            itemProps: (item) => {
+              return { label: item.name };
+            },
+            defaultItem: {
+              name: "rock band",
+              instagram: "https://instagram.com/",
+              soundcloud: "https://soundcloud.com/",
+              facebook: "https://facebook.com/",
+              origin: "Santiago Chile",
+              year: "2020",
+              style: "Trance",
+              imgSrc: "/uploads/tina.jpeg",
+            },
+          },
 
           fields: [
             {
@@ -81,32 +164,6 @@ const schema = defineSchema({
             return `/`;
           }
           return undefined;
-        },
-      },
-    },
-    {
-      label: "Blog Posts",
-      name: "post",
-      path: "content/post",
-      fields: [
-        {
-          type: "string",
-          label: "Title",
-          name: "title",
-        },
-        {
-          type: "string",
-          label: "Blog Post Body",
-          name: "body",
-          isBody: true,
-          ui: {
-            component: "textarea",
-          },
-        },
-      ],
-      ui: {
-        router: ({ document }) => {
-          return `/posts/${document._sys.filename}`;
         },
       },
     },

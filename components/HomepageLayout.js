@@ -7,6 +7,7 @@ import Script from "next/script";
 
 import { tinaField, useTina } from "tinacms/dist/react";
 import Contact from "./Contact";
+import Somos from "./Somos";
 
 export const HomepageLayout = (props) => {
   //console.log(props);
@@ -50,6 +51,7 @@ export const HomepageLayout = (props) => {
       </main> */}
       {/* <Slider /> */}
       <NavBar />
+      <Somos data={props} />
       <LineUp pagez={props.pagez} />
       <Contact />
       <footer>

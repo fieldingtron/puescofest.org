@@ -19,7 +19,6 @@ export default function Home(props) {
   return (
     <HomepageLayout pagez={data.page}>
       <h2 data-tina-field={tinaField(data.page, "facebook")}>{facebook}</h2>
-
       <div data-tina-field={tinaField(data.page, "body")}>
         <TinaMarkdown content={content} />
       </div>
