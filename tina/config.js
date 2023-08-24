@@ -49,23 +49,6 @@ const imageBlock = {
   ],
 };
 
-const imageBlock2 = {
-  name: "image",
-  label: "Image",
-  ui: {
-    defaultItem: {
-      imgSrc: "/uploads/tina.jpeg",
-    },
-  },
-  fields: [
-    {
-      type: "image",
-      label: "Image",
-      name: "imgSrc",
-    },
-  ],
-};
-
 const schema = defineSchema({
   collections: [
     {

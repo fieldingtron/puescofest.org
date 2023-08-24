@@ -2,7 +2,7 @@ import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 
 export default function Somos({ data }) {
-  console.log(data.pagez);
+  //console.log(data.pagez);
   return (
     <section className="about-section dark-back" id="about">
       <div className="container">
