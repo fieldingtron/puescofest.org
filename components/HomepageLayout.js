@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import Slider from "./Slider";
+import Kayak from "./Kayak";
 import LineUp from "./LineUp";
 import NavBar from "./NavBar";
 import Script from "next/script";
@@ -36,23 +36,11 @@ export const HomepageLayout = (props) => {
         </div>
       </section>
 
-      {/* <header>
-        <Link href="/">Home</Link>
-        {" | "}
-        <Link href="/posts">Posts</Link>
-      </header> */}
-      {/* <main>
-        {props.children}
-
-        <h1>insta</h1>
-        <h2 data-tina-field={tinaField(props.pagez, "instagram")}>
-          {props.pagez.instagram}
-        </h2>
-      </main> */}
-      {/* <Slider /> */}
       <NavBar />
       <Somos data={props} />
       <LineUp pagez={props.pagez} />
+      <Kayak data={props} />
+
       <Contact />
       <footer>
         <div className="container">

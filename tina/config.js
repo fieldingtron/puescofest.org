@@ -5,7 +5,7 @@ const headingBlock = {
   label: "Heading",
   ui: {
     defaultItem: {
-      text: "Lorem ipsum dolo",
+      heading: "Lorem ipsum dolo",
     },
   },
   fields: [
@@ -22,17 +22,15 @@ const contentBlock = {
   label: "Content",
   ui: {
     defaultItem: {
-      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.",
+      textz:
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.",
     },
   },
   fields: [
     {
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
       label: "Text",
-      name: "text",
+      name: "textz",
     },
   ],
 };
@@ -67,6 +65,13 @@ const schema = defineSchema({
           list: true,
           name: "intro",
           label: "About Us / Intro",
+          templates: [imageBlock, contentBlock, headingBlock],
+        },
+        {
+          type: "object",
+          list: true,
+          name: "kayak",
+          label: "Kayak Section",
           templates: [imageBlock, contentBlock, headingBlock],
         },
         {
