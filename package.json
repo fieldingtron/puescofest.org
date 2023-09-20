@@ -16,7 +16,7 @@
     "tw-elements": "^1.0.0"
   },
   "devDependencies": {
-    "@tinacms/cli": "1.5.13",
+    "@tinacms/cli": "1.5.29",
     "autoprefixer": "^10.4.15",
     "eslint": "7",
     "eslint-config-next": "^13.4.16",
