@@ -55,24 +55,13 @@ const schema = defineSchema({
       path: "content/page",
       format: "mdx",
       fields: [
-        // {
-        //   type: "string",
-        //   label: "Facebook Link",
-        //   name: "facebook",
-        // },
         {
-          type: "object",
-          list: true,
-          name: "intro",
-          label: "About Us / Intro",
-          templates: [imageBlock, contentBlock, headingBlock],
-        },
-        {
-          type: "object",
-          list: true,
-          name: "kayak",
-          label: "Kayak Section",
-          templates: [imageBlock, contentBlock, headingBlock],
+          type: "string",
+          label: "Intro Text",
+          name: "introtext",
+          ui: {
+            component: "textarea",
+          },
         },
         {
           label: "Bands",
@@ -137,6 +126,20 @@ const schema = defineSchema({
               name: "imgSrc",
             },
           ],
+        },
+        {
+          type: "object",
+          list: true,
+          name: "blockdemo",
+          label: "BlockDemo",
+          templates: [imageBlock, contentBlock, headingBlock],
+        },
+        {
+          type: "object",
+          list: true,
+          name: "kayak",
+          label: "Kayak Section",
+          templates: [imageBlock, contentBlock, headingBlock],
         },
 
         {

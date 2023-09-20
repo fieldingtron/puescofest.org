@@ -1,4 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .nerd {
   padding-top: 2rem;
   padding-bottom: 2rem;
+  color: green;
+}
+
+
+.bg-alt1 {
+  background-color: #9BC9C6;
+}
+
+.hexagon {
+
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto 0px;
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  /* clip-path: polygon(50% 0%, 90% 20%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 10% 20%); */
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+
+}
+
+
+.hexagon h2 {
+  margin-top: 0px;
+  color: white;
+  font-size: 25px;
+  letter-spacing: 1px;
+  position: absolute;
+  inset: 0px 0px 0%;
+  line-height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 1;
+  transition: all 0.3s ease-in-out 0s;
+  word-spacing: 100vw;
+}
+
+
+
+.hexagon img {
+    max-height: 180px;
+    width: auto;
+    opacity: 0.8;
 }
