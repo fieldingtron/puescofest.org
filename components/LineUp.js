@@ -3,8 +3,8 @@ import { useTina, tinaField } from "tinacms/dist/react";
 import { client } from "../tina/__generated__/client";
 
 export default function LineUp(props) {
-  console.log("Bands");
-  console.log(props);
+  //console.log("Bands");
+  //console.log(props);
   return (
     <section className="dark:bg-darkBlue light-back" id="lineUp">
       <div className="container mx-auto p-6 lg:mb-0">

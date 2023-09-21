@@ -9,6 +9,7 @@ export default function ModalBand(props) {
           tabIndex="-1"
           aria-labelledby={band.name}
           aria-hidden="true"
+          key={`modal${index}`}
         >
           <div
             data-te-modal-dialog-ref
