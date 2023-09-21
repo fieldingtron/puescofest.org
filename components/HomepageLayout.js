@@ -8,6 +8,12 @@ import BlockDemo from "./BlockDemo";
 import Somos from "./Somos";
 import ModalBand from "./ModalBand";
 
+// import dynamic from "next/dynamic";
+
+// const DynamicComponent = dynamic(() => import("./ModalBand"), {
+//   ssr: false,
+// });
+
 import { tinaField, useTina } from "tinacms/dist/react";
 import Contact from "./Contact";
 
@@ -44,6 +50,7 @@ export const HomepageLayout = (props) => {
           </p>
         </div>
       </footer>
+      <Script src="/js/tw-elements.umd.min.js" strategy="lazyOnload" />
       {/* <Script src="/js/jqBootstrapValidation.js" strategy="beforeInteractive" /> */}
       {/* <Script src="/js/contact_me.js" strategy="lazyOnload" /> */}
     </>

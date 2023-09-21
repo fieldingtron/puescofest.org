@@ -14,10 +14,10 @@ export default function LineUp(props) {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {props.pagez.bands.map((band, index) => (
             <a
-              href="#exampleModal"
+              href={`#band${index}`}
               className="open-popup-link"
               data-te-toggle="modal"
-              data-te-target="#exampleModal"
+              data-te-target={`#band${index}`}
               key={band.name}
               data-tina-field={tinaField(band, "name")}
             >
