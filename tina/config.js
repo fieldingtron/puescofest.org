@@ -162,7 +162,7 @@ const schema = defineSchema({
 });
 
 export const config = defineConfig({
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+  clientId: process.env.TINA_CLIENT_ID,
   branch:
     process.env.NEXT_PUBLIC_TINA_BRANCH || // custom branch env override
     process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF || // Vercel branch env
