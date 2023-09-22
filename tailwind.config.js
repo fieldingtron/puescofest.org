@@ -26,6 +26,10 @@ module.exports = {
         accentCyan: "hsl(176, 68%, 64%)",
         accentBlue: "hsl(198, 60%, 50%)",
         lightRed: "hsl(0, 100%, 63%)",
+        softBlue: "hsl(231, 69%, 60%)",
+        softRed: "hsl(0, 94%, 66%)",
+        grayishBlue: "hsl(229, 8%, 60%)",
+        veryDarkBlue: "hsl(229, 31%, 21%)",
       },
       fontFamily: {
         sans: ["Bai Jamjuree", "sans-serif"],

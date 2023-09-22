@@ -63,17 +63,20 @@ export default function ModalBand(props) {
               {/* <!--Modal footer--> */}
               <div className="flex flex-shrink-0 flex-wrap items-center justify-between rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50">
                 {/* <!-- Facebook --> */}
-                <a href={band.facebook}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7 fill-blue-500"
-                    // fill="currentColor"
-                    // style="color: green"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                  </svg>
-                </a>
+
+                {band.facebook && (
+                  <a href={band.facebook}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-7 w-7 fill-blue-500"
+                      // fill="currentColor"
+                      // style="color: green"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                    </svg>
+                  </a>
+                )}
 
                 {/* <!-- Instagram --> */}
                 <a href={band.instagram}>
@@ -97,9 +100,9 @@ export default function ModalBand(props) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="fill-orange-500"
                   >
                     <path d="M14 17.96l4 .04c3-.04 4-1.5 4-3 0-2.5-3-2.5-3-2.5 1-3 0-4.9-1.5-5.5C16 6.4 14 7 14 7v10.96zM10 9v9M6 8v10M2 13v3.5" />

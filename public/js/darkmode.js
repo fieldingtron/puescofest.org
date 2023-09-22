@@ -10,6 +10,8 @@ if (
 }
 
 const themeToggleBtn = document.getElementById("theme-toggle");
+const themeToggleBtn2 = document.getElementById("theme-toggle2");
+
 const themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
 const themeToggleLightIcon = document.getElementById("theme-toggle-light-icon");
 
@@ -26,6 +28,7 @@ if (
 
 // Listen for toggle button click
 themeToggleBtn.addEventListener("click", toggleMode);
+themeToggleBtn2.addEventListener("click", toggleMode);
 
 function toggleMode() {
   // Toggle icon
@@ -52,4 +55,16 @@ function toggleMode() {
       localStorage.setItem("color-theme", "dark");
     }
   }
+}
+
+const btn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+const logo = document.getElementById("logo");
+
+btn.addEventListener("click", navToggle);
+
+function navToggle() {
+  btn.classList.toggle("open");
+  menu.classList.toggle("flex");
+  menu.classList.toggle("hidden");
 }

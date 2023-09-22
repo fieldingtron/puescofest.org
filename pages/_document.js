@@ -15,8 +15,6 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap"
           rel="stylesheet"
         />
-
-        {/* <link href="/css/output.css" rel="stylesheet" /> */}
       </Head>
       <body className="dark:bg-darkBlue dark:text-white  bg-alt1">
         <Main />
