@@ -127,13 +127,13 @@ const schema = defineSchema({
             },
           ],
         },
-        {
-          type: "object",
-          list: true,
-          name: "blockdemo",
-          label: "BlockDemo",
-          templates: [imageBlock, contentBlock, headingBlock],
-        },
+        // {
+        //   type: "object",
+        //   list: true,
+        //   name: "blockdemo",
+        //   label: "BlockDemo",
+        //   templates: [imageBlock, contentBlock, headingBlock],
+        // },
         {
           type: "object",
           list: true,
@@ -141,13 +141,27 @@ const schema = defineSchema({
           label: "Kayak Section",
           templates: [imageBlock, contentBlock, headingBlock],
         },
-
         {
-          name: "body",
-          label: "Main Content",
-          type: "rich-text",
-          isBody: true,
+          type: "object",
+          list: true,
+          name: "llegar",
+          label: "Como Llegar Section",
+          templates: [imageBlock, contentBlock, headingBlock],
         },
+        {
+          type: "object",
+          list: true,
+          name: "tickets",
+          label: "Tickets Info",
+          templates: [imageBlock, contentBlock, headingBlock],
+        },
+
+        // {
+        //   name: "body",
+        //   label: "Main Content",
+        //   type: "rich-text",
+        //   isBody: true,
+        // },
       ],
       ui: {
         router: ({ document }) => {

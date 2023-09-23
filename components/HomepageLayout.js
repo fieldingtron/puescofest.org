@@ -4,9 +4,10 @@ import Kayak from "./Kayak";
 import LineUp from "./LineUp";
 import NavBar from "./NavBar";
 import Script from "next/script";
-import BlockDemo from "./BlockDemo";
+import ComoLlegar from "./ComoLlegar";
 import Somos from "./Somos";
 import ModalBand from "./ModalBand";
+import Tickets from "./Tickets";
 
 // import dynamic from "next/dynamic";
 
@@ -36,7 +37,10 @@ export const HomepageLayout = (props) => {
       <LineUp pagez={props.pagez} />
       <ModalBand pagez={props.pagez} />
 
-      {/* <Kayak data={props} /> */}
+      <Kayak data={props} />
+      <ComoLlegar data={props} />
+      <Tickets data={props} />
+
       {/* <BlockDemo data={props} /> */}
 
       {/* <Contact /> */}

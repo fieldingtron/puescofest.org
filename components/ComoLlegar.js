@@ -2,20 +2,19 @@ import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
 
-export default function Kayak({ data }) {
+export default function ComoLLegar({ data }) {
   console.log(data);
   return (
     <section
-      id="kayak"
-      className="dark:bg-darkBlue3
-       bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
+      id="comollegar"
+      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom"
+      style={{ backgroundImage: `url("/images/araucarias2_bckgr.png")` }}
     >
       <div class="container p-6 mx-auto">
-        <h1 class="text-6xl text-center p-4 py-6">Kayak</h1>
+        <h1 class="text-6xl text-center p-4 py-6">Como Llegar</h1>
 
-        {data.pagez.kayak
-          ? data.pagez.kayak.map(function (block, i) {
+        {data.pagez.llegar
+          ? data.pagez.llegar.map(function (block, i) {
               return (
                 <div key={i} data-tina-field={tinaField(block)}>
                   <Block {...block} />
