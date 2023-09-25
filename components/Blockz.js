@@ -2,8 +2,8 @@ import { HeadingBlock } from "./blocks/HeadingBlock";
 import { ContentBlock } from "./blocks/ContentBlock";
 import { ImageBlock } from "./blocks/ImageBlock";
 export const Block = (block) => {
-  console.log(block);
-  console.log("type of block = " + block.__typename);
+  // console.log(block);
+  // console.log("type of block = " + block.__typename);
   switch (block.__typename) {
     case "PageIntroHeading":
     case "PageKayakHeading":

@@ -8,6 +8,7 @@ import ComoLlegar from "./ComoLlegar";
 import Somos from "./Somos";
 import ModalBand from "./ModalBand";
 import Tickets from "./Tickets";
+import FAQ from "./FAQ";
 
 // import dynamic from "next/dynamic";
 
@@ -40,10 +41,11 @@ export const HomepageLayout = (props) => {
       <Kayak data={props} />
       <ComoLlegar data={props} />
       <Tickets data={props} />
+      <FAQ data={props.pagez} />
 
       {/* <BlockDemo data={props} /> */}
 
-      {/* <Contact /> */}
+      <Contact />
       <footer>
         <div className="container mx-auto  ">
           <p className="text-center">

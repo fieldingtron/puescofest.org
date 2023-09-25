@@ -1,86 +1,111 @@
 import React from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { FormData } from "formdata-node";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 export default function Contact() {
   //console.log(process.env.NEXT_PUBLIC_EMAIL_REST_API);
   //console.log("hello");
-  return (
-    <section className="contact-section dark-back" id="contacto">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-11 col-md-offset-1 col-sm-offset-0 col-lg-8 col-lg-offset-2 ">
-            <h1 className="main-title">Contacto</h1>
 
-            <form
-              name="sentMessage"
-              id="contactForm"
-              noValidate="novalidate"
-              action={process.env.NEXT_PUBLIC_EMAIL_REST_API}
-            >
-              <div className="control-group">
-                <div className="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Nombre</label>
-                  <input
-                    className="form-control"
-                    id="name"
-                    type="text"
-                    placeholder="Nombre"
-                    required="required"
-                    data-validation-required-message="Ponga tu Nombre"
-                  />
-                  <p className="help-block text-danger"></p>
-                </div>
-              </div>
-              <div className="control-group">
-                <div className="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Correo</label>
-                  <input
-                    className="form-control"
-                    id="email"
-                    type="email"
-                    placeholder="Email / Correo "
-                    required="required"
-                    data-validation-required-message="Ponga tu correo"
-                  />
-                  <p className="help-block text-danger"></p>
-                </div>
-              </div>
-              <div className="control-group">
-                <div className="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Numero Telefono</label>
-                  <input
-                    className="form-control"
-                    id="phone"
-                    type="tel"
-                    placeholder="Numero Telefono"
-                    required="required"
-                    data-validation-required-message="Ponga tu numero cellular."
-                  />
-                  <p className="help-block text-danger"></p>
-                </div>
-              </div>
-              <div className="control-group">
-                <div className="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Mensaje</label>
-                  <textarea
-                    className="form-control"
-                    id="message"
-                    rows="5"
-                    placeholder="Mensaje"
-                    required="required"
-                    data-validation-required-message="Escriba un Mensaje."
-                  ></textarea>
-                  <p className="help-block text-danger"></p>
-                </div>
-              </div>
-              <br />
-              <div id="success"></div>
-              <div className="form-group">
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+  const [response, setResponse] = useState(false);
+
+  const { handleSubmit, formState } = useForm();
+  const { isSubmitting } = formState;
+
+  return (
+    <section
+      className="dark:bg-darkBlue3
+    bg-teal-500/50   bg-no-repeat bg-right-bottom"
+      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
+      id="contact"
+    >
+      <div className="container mx-auto my-4 py-5">
+        <div className="w-full max-w-2xl mx-auto my-5">
+          <div className="p-6 border  rounded-md">
+            <form method="POST" action="https://herotofu.com/start">
+              <label className="block mb-6">
+                <span className="">Tu Nombre</span>
+                <input
+                  type="text"
+                  name="name"
+                  className="
+            block
+            w-full
+            mt-1
+            border-gray-300
+            rounded-md
+            shadow-sm
+            focus:border-indigo-300
+            focus:ring
+            focus:ring-indigo-200
+            focus:ring-opacity-50
+          "
+                  placeholder="Pedro RiosLibres"
+                />
+              </label>
+              <label className="block mb-6">
+                <span className=" ">Correo</span>
+                <input
+                  name="email"
+                  type="email"
+                  className="
+            block
+            w-full
+            mt-1
+            border-gray-300
+            rounded-md
+            shadow-sm
+            focus:border-indigo-300
+            focus:ring
+            focus:ring-indigo-200
+            focus:ring-opacity-50
+          "
+                  placeholder="juan.pedro@gmail.com"
+                  required
+                />
+              </label>
+              <label className="block mb-6">
+                <span className=" ">Mensaje</span>
+                <textarea
+                  name="message"
+                  className="
+            block
+            w-full
+            mt-1
+            border-gray-300
+            rounded-md
+            shadow-sm
+            focus:border-indigo-300
+            focus:ring
+            focus:ring-indigo-200
+            focus:ring-opacity-50
+          "
+                  rows="3"
+                  placeholder="Cuenta nos que estas pensando..."
+                ></textarea>
+              </label>
+              <div className="mb-6">
                 <button
                   type="submit"
-                  className="btn btn-primary btn-xl"
-                  id="sendMessageButton"
+                  className="
+            h-10
+            px-5
+            text-indigo-100
+            bg-indigo-700
+            rounded-lg
+            transition-colors
+            duration-150
+            focus:shadow-outline
+            hover:bg-indigo-800
+          "
                 >
-                  Enviar
+                  Manda Correo
                 </button>
               </div>
             </form>

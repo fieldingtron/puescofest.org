@@ -3,7 +3,7 @@ import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
 
 export default function Tickets({ data }) {
-  console.log(data);
+  //console.log(data);
   return (
     <section
       id="tickets"

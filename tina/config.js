@@ -156,6 +156,46 @@ const schema = defineSchema({
           templates: [imageBlock, contentBlock, headingBlock],
         },
 
+        {
+          type: "string",
+          label: "FAQ text",
+          name: "FAQintro",
+          ui: {
+            component: "textarea",
+          },
+        },
+        {
+          label: "Preguntas Frequentes",
+          name: "faq",
+          type: "object",
+          list: true,
+          ui: {
+            itemProps: (item) => {
+              return { label: item.question };
+            },
+            defaultItem: {
+              question: "Que es ? ",
+              response: "Esto signifiga",
+            },
+          },
+
+          fields: [
+            {
+              label: "Question",
+              name: "question",
+              type: "string",
+            },
+            {
+              label: "Response",
+              name: "response",
+              type: "string",
+              ui: {
+                component: "textarea",
+              },
+            },
+          ],
+        },
+
         // {
         //   name: "body",
         //   label: "Main Content",

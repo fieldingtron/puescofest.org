@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.5.0",
+    "formdata-node": "^5.0.1",
     "next": "^13.4.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.46.2",
     "tinacms": "1.5.6",
     "tw-elements": "^1.0.0"
   },
