@@ -23,7 +23,7 @@ export default function FAQ(props) {
         >
           {props.data.FAQintro}
         </p>
-        <div class="max-w-2xl m-8 mx-auto overflow-hidden">
+        <div className="max-w-2xl m-8 mx-auto overflow-hidden">
           {props.data.faq.map((faq, index) => (
             <div
               className="py-1 border-b outline-none group"

@@ -11,8 +11,8 @@ export default function Kayak({ data }) {
        bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom"
       style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
     >
-      <div class="container p-6 mx-auto">
-        <h1 class="text-6xl text-center p-4 py-6">Kayak</h1>
+      <div className="container p-6 mx-auto">
+        <h1 className="text-6xl text-center p-4 py-6">Kayak</h1>
 
         {data.pagez.kayak
           ? data.pagez.kayak.map(function (block, i) {
