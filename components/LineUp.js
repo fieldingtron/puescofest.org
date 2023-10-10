@@ -23,7 +23,7 @@ export default function LineUp(props) {
             >
               <div className="hexagon">
                 <h2 className="text-base">{band.name}</h2>
-                <img src={band.imgSrc} alt={band.name} />
+                <img src={band.imgSrc} alt={band.name} className="imgFit" />
               </div>
             </a>
           ))}

@@ -57,7 +57,11 @@ export default function ModalBand(props) {
                   <div>Estilo: {band.style}</div>
                 </div>
 
-                <img src={band.imgSrc} alt={band.name} className="" />
+                <img
+                  src={band.imgSrc}
+                  alt={band.name}
+                  className="modalImgFit"
+                />
               </div>
 
               {/* <!--Modal footer--> */}

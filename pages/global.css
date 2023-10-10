@@ -111,3 +111,14 @@
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
   background-color: #fff;
 }
+
+.imgFit { 
+  border: 2px dotted red;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.modalImgFit {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
