@@ -11,26 +11,38 @@ export default function NavBar() {
             </h1>
           </div>
 
-          <div className="hidden items-center text-xs lg:text-lg space-x-4 lg:space-x-8 uppercase md:flex  ">
-            <a href="#somos" className="">
+          <div className="hidden items-center text-xs lg:text-xs space-x-2 lg:space-x-4 uppercase md:flex  ">
+            <a href="#video" className="  hover:text-softRed">
+              Video
+            </a>
+            <a href="#somos" className="  hover:text-softRed">
               Somos
             </a>
-            <a href="#lineup" className="">
-              Line Up
+            <a href="#musica" className="  hover:text-softRed">
+              Musica
             </a>
-            <a href="#kayak" className="">
+            <a href="#actividades" className="  hover:text-softRed">
+              Actividades
+            </a>
+            <a href="#kayak" className="  hover:text-softRed">
               Kayak
             </a>
-            <a href="#comollegar" className="">
-              Como Llegar
-            </a>
-
-            <a href="#tickets" className="">
+            <a href="#tickets" className="  hover:text-softRed">
               Tickets
             </a>
-            <a href="#faq" className="">
-              FAQ
+            <a href="#llegar" className=" hover:text-softRed">
+              Llegar
             </a>
+            <a href="#fotos" className=" hover:text-softRed">
+              Fotos
+            </a>
+            <a href="#camping" className=" hover:text-softRed">
+              Camping
+            </a>
+            <a href="#contacto" className=" hover:text-softRed">
+              Contacto
+            </a>
+
             <button
               id="theme-toggle"
               className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2 5"
@@ -77,12 +89,17 @@ export default function NavBar() {
           className="fixed inset-0 z-20 hidden flex-col items-center self-end w-full h-full m-h-screen px-6 py-1 pt-24 pb-4 tracking-widest text-white uppercase divide-y divide-gray-500 opacity-90 bg-veryDarkBlue"
         >
           <div className="w-full py-3 text-center">
+            <a href="#video" className="block hover:text-softRed">
+              Video
+            </a>
+          </div>
+          <div className="w-full py-3 text-center">
             <a href="#somos" className="block hover:text-softRed">
               Somos
             </a>
           </div>
           <div className="w-full py-3 text-center">
-            <a href="#lineup" className="block hover:text-softRed">
+            <a href="#musica" className="block hover:text-softRed">
               Line Up
             </a>
           </div>
@@ -92,7 +109,7 @@ export default function NavBar() {
             </a>
           </div>
           <div className="w-full py-3 text-center">
-            <a href="#comollegar" className="block hover:text-softRed">
+            <a href="#llegar" className="block hover:text-softRed">
               Como Llegar
             </a>
           </div>

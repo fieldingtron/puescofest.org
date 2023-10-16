@@ -113,12 +113,17 @@
 }
 
 .imgFit { 
-  border: 2px dotted red;
+  border: 0px dotted red;
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
 .modalImgFit {
   aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.fotoImageBlock {
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }

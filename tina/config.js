@@ -127,6 +127,43 @@ const schema = defineSchema({
             },
           ],
         },
+        {
+          label: "Actividades",
+          name: "activities",
+          type: "object",
+          list: true,
+          ui: {
+            itemProps: (item) => {
+              return { label: item.name };
+            },
+            defaultItem: {
+              name: "Actividad",
+              text: "Detalle Aqui",
+              imgSrc: "/uploads/tina.jpeg",
+            },
+          },
+
+          fields: [
+            {
+              label: "Name",
+              name: "name",
+              type: "string",
+            },
+            {
+              label: "Detalle",
+              name: "text",
+              type: "string",
+              ui: {
+                component: "textarea",
+              },
+            },
+            {
+              type: "image",
+              label: "Imagen",
+              name: "imgSrc",
+            },
+          ],
+        },
         // {
         //   type: "object",
         //   list: true,
@@ -144,6 +181,13 @@ const schema = defineSchema({
         {
           type: "object",
           list: true,
+          name: "feria",
+          label: "Feria Section",
+          templates: [imageBlock, contentBlock, headingBlock],
+        },
+        {
+          type: "object",
+          list: true,
           name: "llegar",
           label: "Como Llegar Section",
           templates: [imageBlock, contentBlock, headingBlock],
@@ -155,6 +199,34 @@ const schema = defineSchema({
           label: "Tickets Info",
           templates: [imageBlock, contentBlock, headingBlock],
         },
+        {
+          label: "Fotos",
+          name: "fotos",
+          type: "object",
+          list: true,
+          ui: {
+            itemProps: (item) => {
+              return { label: item.name };
+            },
+            defaultItem: {
+              name: "Foto #",
+              imgSrc: "/uploads/tina.jpeg",
+            },
+          },
+
+          fields: [
+            {
+              label: "Name",
+              name: "name",
+              type: "string",
+            },
+            {
+              type: "image",
+              label: "Imagen",
+              name: "imgSrc",
+            },
+          ],
+        },
 
         {
           type: "string",
@@ -163,6 +235,13 @@ const schema = defineSchema({
           ui: {
             component: "textarea",
           },
+        },
+        {
+          type: "object",
+          list: true,
+          name: "camping",
+          label: "Camping Section",
+          templates: [imageBlock, contentBlock, headingBlock],
         },
         {
           label: "Preguntas Frequentes",

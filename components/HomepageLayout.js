@@ -1,14 +1,20 @@
 import Link from "next/link";
 import Head from "next/head";
 import Kayak from "./Kayak";
-import LineUp from "./LineUp";
+import Musica from "./Musica";
 import NavBar from "./NavBar";
 import Script from "next/script";
 import ComoLlegar from "./ComoLlegar";
 import Somos from "./Somos";
 import ModalBand from "./ModalBand";
+import Modals2 from "./Modals2";
 import Tickets from "./Tickets";
 import FAQ from "./FAQ";
+import Fotos from "./Fotos";
+import Landing from "./Landing";
+import Video from "./Video";
+import Feria from "./Feria";
+import Camping from "./Camping";
 
 // import dynamic from "next/dynamic";
 
@@ -32,16 +38,24 @@ export const HomepageLayout = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script src="/js/darkmode.js" strategy="beforeInteractive" />
-
       <NavBar />
-      <Somos data={props} />
-      <LineUp pagez={props.pagez} />
-      <ModalBand pagez={props.pagez} />
+      <div className="odd:bg-white">
+        <Landing data={props} />
+        <Video data={props} />
+      </div>
 
+      <Somos data={props} />
+      <Musica pagez={props.pagez} />
+      <ModalBand pagez={props.pagez} />
+      <Modals2 pagez={props.pagez} />
       <Kayak data={props} />
-      <ComoLlegar data={props} />
+      <Feria data={props} />
       <Tickets data={props} />
-      <FAQ data={props.pagez} />
+      <Fotos data={props} />
+      <ComoLlegar data={props} />
+      <Camping data={props} />
+
+      {/* <FAQ data={props.pagez} /> */}
 
       {/* <BlockDemo data={props} /> */}
 
