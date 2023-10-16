@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tinacms/cli": "1.5.13",
+    "@tinacms/cli": "1.5.30",
     "autoprefixer": "^10.4.15",
     "babel-plugin-styled-components": "^2.1.4",
     "eslint": "7",
