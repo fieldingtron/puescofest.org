@@ -64,6 +64,11 @@ const schema = defineSchema({
           },
         },
         {
+          type: "image",
+          label: "Somos Image",
+          name: "somosImgSrc",
+        },
+        {
           label: "Bands",
           name: "bands",
           type: "object",

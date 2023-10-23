@@ -42,9 +42,10 @@ export default function Somos({ data }) {
         {/* <!-- Image --> */}
         <div className="relative mx-auto lg:mx-0 lg:mb-0 lg:w-1/2">
           <img
-            src="/images/puescofest-somos.jpg"
+            src={data.pagez.somosImgSrc}
             alt="Somos PuescoFest"
-            className="relative z-10 lg:top-24 xl:top-0 overflow-x-visible"
+            className="relative z-10 lg:top-24 xl:top-0 overflow-x-hidden imgSquare"
+            data-tina-field={tinaField(data.pagez, "somosImgSrc")}
           />
         </div>
       </div>

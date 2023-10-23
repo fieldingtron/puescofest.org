@@ -127,3 +127,10 @@
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
+
+.imgSquare {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  width: 100%;
+  overflow: none;
+}
