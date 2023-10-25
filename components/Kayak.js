@@ -12,7 +12,7 @@ export default function Kayak({ data }) {
       style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6">Kayak</h1>
+        <h1 className="text-6xl text-center p-4 py-6">Campeonato de Kayak</h1>
 
         {data.pagez.kayak
           ? data.pagez.kayak.map(function (block, i) {

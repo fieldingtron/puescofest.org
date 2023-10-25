@@ -12,7 +12,7 @@ export default function Tickets({ data }) {
       style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6">Tickets</h1>
+        <h1 className="text-6xl text-center p-4 py-6 uppercase">Tickets</h1>
 
         {data.pagez.tickets
           ? data.pagez.tickets.map(function (block, i) {

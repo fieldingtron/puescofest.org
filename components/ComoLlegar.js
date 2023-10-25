@@ -11,7 +11,7 @@ export default function ComoLLegar({ data }) {
       style={{ backgroundImage: `url("/images/araucarias2_bckgr.png")` }}
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6">Como Llegar</h1>
+        <h1 className="text-6xl text-center p-4 py-6 uppercase">Como Llegar</h1>
 
         {data.pagez.llegar
           ? data.pagez.llegar.map(function (block, i) {
