@@ -56,6 +56,11 @@ const schema = defineSchema({
       format: "mdx",
       fields: [
         {
+          type: "image",
+          label: "Landing Image",
+          name: "landingImageSrc",
+        },
+        {
           type: "string",
           label: "Intro Text",
           name: "introtext",
@@ -68,6 +73,7 @@ const schema = defineSchema({
           label: "Somos Image",
           name: "somosImgSrc",
         },
+
         {
           label: "Bands",
           name: "bands",
