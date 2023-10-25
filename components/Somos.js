@@ -17,7 +17,7 @@ export default function Somos({ data }) {
             Puesco Fest
           </h1> */}
           <p
-            className="max-w-md mx-auto text-lg text-center lg:text-2xl lg:text-left lg:mt-0 lg:mx-0"
+            className="max-w-md mx-auto text-lg text-center lg:text-xl   lg:mt-0 lg:mx-0"
             data-tina-field={tinaField(data.pagez, "introtext")}
           >
             {data.pagez.introtext}
