@@ -62,6 +62,12 @@ export const HomepageLayout = (props) => {
       <Contact />
       <footer>
         <div className="container mx-auto  ">
+          <img
+            src="/images/sponsors.png"
+            alt="Sponsors"
+            className="py-2 mx-auto"
+          />
+
           <p className="text-center">
             ©2023 PuescoFest | Design and Programming by{" "}
             <a href="https://fieldsmarshall.com/" target="_blank">

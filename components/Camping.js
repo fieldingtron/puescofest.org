@@ -7,8 +7,7 @@ export default function Camping({ data }) {
   return (
     <section
       id="camping"
-      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias2_bckgr.png")` }}
+      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
     >
       <div className="container p-6 mx-auto">
         <h1 className="text-6xl text-center p-4 py-6 uppercase">camping</h1>

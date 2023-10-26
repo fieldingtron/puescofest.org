@@ -57,8 +57,13 @@ const schema = defineSchema({
       fields: [
         {
           type: "image",
-          label: "Landing Image",
+          label: "Landing  Daytime Image",
           name: "landingImageSrc",
+        },
+        {
+          type: "image",
+          label: "Landing DarkMode Image",
+          name: "landingDarkImageSrc",
         },
         {
           type: "string",

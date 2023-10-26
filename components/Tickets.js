@@ -8,8 +8,7 @@ export default function Tickets({ data }) {
     <section
       id="tickets"
       className="dark:bg-darkBlue3
-      bg-teal-500/50   bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
+      bg-teal-500/50   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
     >
       <div className="container p-6 mx-auto">
         <h1 className="text-6xl text-center p-4 py-6 uppercase">Tickets</h1>

@@ -6,9 +6,20 @@ export default function NavBar() {
       <nav className="container relative mx-auto px-6 ">
         <div className="flex items-center justify-center md:justify-between space-x-6 my-6">
           <div className="z-30">
-            <h1 className="text-6xl md:text-3xl font-sans text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text font-extrabold">
+            {/* <h1 className="text-6xl md:text-3xl font-sans text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 text-transparent bg-clip-text font-extrabold">
               Puesco Fest
-            </h1>
+            </h1> */}
+
+            <img
+              src="/images/logo-puescofest-negro.png"
+              alt="Puesco Fest Logo"
+              className="block max-h-10 dark:hidden"
+            />
+            <img
+              src="/images/logo-puescofest-blanco.png"
+              alt="Puesco Fest Logo"
+              className=" max-h-10 hidden dark:block"
+            />
           </div>
 
           <div className="hidden items-center text-xs lg:text-xs space-x-2 lg:space-x-4 uppercase md:flex  ">

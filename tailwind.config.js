@@ -14,6 +14,16 @@ module.exports = {
       xl: "1440px",
     },
     extend: {
+      backgroundImage: (theme) => ({
+        morchelas: "url('/images/morchelas.png')",
+        mujer: "url('/images/mujer.png')",
+        "martin-pescador": "url('/images/martin-pescador.png')",
+        araucaria: "url('/images/araucarias1_bckgr.png')",
+
+        "image-two":
+          "url('https://images.unsplash.com/photo-1629651726230-6430554a8890?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2734&q=80')",
+      }),
+
       colors: {
         strongCyan: "hsl(171, 66%, 44%)",
         lightBlue: "hsl(233, 100%, 69%)",

@@ -21,16 +21,13 @@ export default function Contact() {
 
     const formData = new FormData(evt.target);
     let EMAIL_URL = process.env.NEXT_PUBLIC_EMAIL_URL;
-    // EMAIL_URL =  ("https://contemplative.dreamhosters.com/wp-json/contact-form-7/v1/contact-forms/327/feedback");
+
     console.log("EMAIL_URL", EMAIL_URL);
 
     setResponse(false);
     console.log("start");
 
     return new Promise((resolve) => {
-      // console.log("formData", formData);
-      // console.log("EMAIL_URL", EMAIL_URL);
-
       axios.post(EMAIL_URL, formData).then((res) => {
         console.log("promised response");
         console.log(res);
@@ -43,8 +40,7 @@ export default function Contact() {
   return (
     <section
       className="dark:bg-darkBlue3
-    bg-teal-500/50   bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
+    bg-teal-500/50   bg-no-repeat bg-right-bottom bg-araucaria"
       id="contact"
     >
       <div className="container mx-auto my-4 py-5">

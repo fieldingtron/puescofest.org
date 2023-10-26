@@ -7,7 +7,9 @@ export default function Somos({ data }) {
   // console.log(data.pagez);
   return (
     <section id="somos" className="dark:bg-darkBlue3 bg-teal-500/50">
-      <h2 className="text-4xl lg:text-6xl text-center uppercase mb-0">Somos</h2>
+      <h2 className="text-4xl lg:text-6xl text-center uppercase mb-0 pt-4">
+        Somos
+      </h2>
 
       <div className="container flex flex-col-reverse mx-auto p-6 lg:flex-row lg:mb-0">
         {/* <!-- Content --> */}

@@ -7,8 +7,7 @@ export default function ComoLLegar({ data }) {
   return (
     <section
       id="comollegar"
-      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias2_bckgr.png")` }}
+      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed lg:bg-martin-pescador"
     >
       <div className="container p-6 mx-auto">
         <h1 className="text-6xl text-center p-4 py-6 uppercase">Como Llegar</h1>

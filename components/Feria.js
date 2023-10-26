@@ -7,8 +7,7 @@ export default function Feria({ data }) {
   return (
     <section
       id="feria"
-      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias2_bckgr.png")` }}
+      className="dark:bg-darkBlue light-back  bg-fixed bg-no-repeat bg-right-bottom lg:bg-martin-pescador"
     >
       <div className="container p-6 mx-auto">
         <h1 className="text-6xl text-center p-4 py-6 uppercase">

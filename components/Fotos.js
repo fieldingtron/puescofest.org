@@ -8,9 +8,8 @@ export default function Fotos(props) {
   const fotos = props.data.pagez.fotos; //name imgSrc
   return (
     <section
-      className="dark:bg-darkBlue light-back bg-fixed bg-no-repeat bg-right-bottom"
+      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed md:bg-morchelas"
       id="lineUp"
-      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
     >
       <div className="container mx-auto p-6 lg:mb-0">
         <h1 className="text-6xl text-center p-4 py-6 uppercase">Fotos</h1>

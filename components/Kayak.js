@@ -8,11 +8,12 @@ export default function Kayak({ data }) {
     <section
       id="kayak"
       className="dark:bg-darkBlue3
-       bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom"
-      style={{ backgroundImage: `url("/images/araucarias1_bckgr.png")` }}
+       bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom lg:bg-morchelas"
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6">Campeonato de Kayak</h1>
+        <h1 className="text-6xl text-center p-4 py-6 uppercase">
+          Campeonato de Kayak
+        </h1>
 
         {data.pagez.kayak
           ? data.pagez.kayak.map(function (block, i) {
