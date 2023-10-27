@@ -1,6 +1,7 @@
 import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
+import Heading from "./Heading";
 
 export default function Feria({ data }) {
   //console.log(data.pagez.feria);
@@ -10,9 +11,8 @@ export default function Feria({ data }) {
       className="dark:bg-darkBlue light-back  bg-fixed bg-no-repeat bg-right-bottom lg:bg-martin-pescador"
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6 uppercase">
-          Feria de Emprendedores
-        </h1>
+        <Heading text="Feria de Emprendedores" />
+
         {data.pagez.feria
           ? data.pagez.feria.map(function (block, i) {
               return (

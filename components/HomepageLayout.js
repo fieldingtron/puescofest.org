@@ -68,7 +68,7 @@ export const HomepageLayout = (props) => {
             className="py-2 mx-auto"
           />
 
-          <p className="text-center">
+          <p className="text-center my-2 mb-4">
             ©2023 PuescoFest | Design and Programming by{" "}
             <a href="https://fieldsmarshall.com/" target="_blank">
               Fields Marshall

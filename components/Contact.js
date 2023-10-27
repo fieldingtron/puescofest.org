@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FormData } from "formdata-node";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import Heading from "./Heading";
 
 export default function Contact() {
   // console.log("hello");
@@ -41,10 +42,11 @@ export default function Contact() {
     <section
       className="dark:bg-darkBlue3
     bg-teal-500/50   bg-no-repeat bg-right-bottom bg-araucaria"
-      id="contact"
+      id="contacto"
     >
-      <div className="container mx-auto my-4 py-5">
-        <div className="w-full max-w-2xl mx-auto my-5">
+      <Heading text="Contacto" />
+      <div className="container mx-auto my-1 py-1">
+        <div className="w-full max-w-2xl mx-auto my-2">
           <div className="p-6 border  rounded-md">
             {response ? (
               <>

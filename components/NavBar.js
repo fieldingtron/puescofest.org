@@ -23,34 +23,74 @@ export default function NavBar() {
           </div>
 
           <div className="hidden items-center text-xs lg:text-xs space-x-2 lg:space-x-4 uppercase md:flex  ">
-            <a href="#video" className="  hover:text-softRed">
+            <a
+              href="#video"
+              className="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Video
             </a>
-            <a href="#somos" className="  hover:text-softRed">
+            <a
+              href="#somos"
+              className="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Somos
             </a>
-            <a href="#musica" className="  hover:text-softRed">
+            <a
+              href="#musica"
+              className="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Musica
             </a>
-            <a href="#actividades" className="  hover:text-softRed">
+            <a
+              href="#actividades"
+              data-te-smooth-scroll-initclassName="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Actividades
             </a>
-            <a href="#kayak" className="  hover:text-softRed">
+            <a
+              href="#kayak"
+              className="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Kayak
             </a>
-            <a href="#tickets" className="  hover:text-softRed">
+            <a
+              href="#tickets"
+              className="  hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Tickets
             </a>
-            <a href="#llegar" className=" hover:text-softRed">
+            <a
+              href="#llegar"
+              className=" hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Llegar
             </a>
-            <a href="#fotos" className=" hover:text-softRed">
+            <a
+              href="#fotos"
+              className=" hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Fotos
             </a>
-            <a href="#camping" className=" hover:text-softRed">
+            <a
+              href="#camping"
+              className=" hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Camping
             </a>
-            <a href="#contacto" className=" hover:text-softRed">
+            <a
+              href="#contacto"
+              className=" hover:text-softRed"
+              data-te-smooth-scroll-init
+            >
               Contacto
             </a>
 
@@ -130,8 +170,8 @@ export default function NavBar() {
             </a>
           </div>
           <div className="w-full py-3 text-center">
-            <a href="#faq" className="block hover:text-softRed">
-              FAQ
+            <a href="#fotos" className="block hover:text-softRed">
+              Fotos
             </a>
           </div>
           <div className="w-full py-3 text-center">

@@ -1,6 +1,7 @@
 import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
+import Heading from "./Heading";
 
 export default function Tickets({ data }) {
   //console.log(data);
@@ -11,7 +12,7 @@ export default function Tickets({ data }) {
       bg-teal-500/50   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6 uppercase">Tickets</h1>
+        <Heading text="Tickets" />
 
         {data.pagez.tickets
           ? data.pagez.tickets.map(function (block, i) {

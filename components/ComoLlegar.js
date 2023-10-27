@@ -1,17 +1,18 @@
 import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
+import Heading from "./Heading";
 
 export default function ComoLLegar({ data }) {
   //console.log(data);
   return (
     <section
-      id="comollegar"
-      className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed lg:bg-martin-pescador"
+      id="llegar"
+      className=" dark:bg-darkBlue3
+      bg-teal-500/50     bg-no-repeat bg-right-bottom bg-fixed lg:bg-martin-pescador"
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6 uppercase">Como Llegar</h1>
-
+        <Heading text="Como Llegar" />
         {data.pagez.llegar
           ? data.pagez.llegar.map(function (block, i) {
               return (

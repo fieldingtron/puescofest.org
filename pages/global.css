@@ -134,3 +134,15 @@
   width: 100%;
   overflow: none;
 }
+
+.container p a {
+  text-decoration: underline;
+
+}
+
+.container p a:hover {
+  text-decoration: none;
+  color: hsl(0, 94%, 66%);
+  font-size: 1.1rem;
+  font-weight: bold;
+}

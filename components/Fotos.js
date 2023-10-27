@@ -1,6 +1,7 @@
 import React from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { client } from "../tina/__generated__/client";
+import Heading from "./Heading";
 
 export default function Fotos(props) {
   // console.log("fotos");
@@ -9,10 +10,11 @@ export default function Fotos(props) {
   return (
     <section
       className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed md:bg-morchelas"
-      id="lineUp"
+      id="fotos"
     >
       <div className="container mx-auto p-6 lg:mb-0">
-        <h1 className="text-6xl text-center p-4 py-6 uppercase">Fotos</h1>
+        <Heading text="Fotos" />
+
         <div
           data-te-lightbox-init
           className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"

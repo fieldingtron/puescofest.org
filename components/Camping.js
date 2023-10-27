@@ -1,6 +1,7 @@
 import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
+import Heading from "./Heading";
 
 export default function Camping({ data }) {
   //console.log(data.pagez.feria);
@@ -10,7 +11,7 @@ export default function Camping({ data }) {
       className="dark:bg-darkBlue light-back   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
     >
       <div className="container p-6 mx-auto">
-        <h1 className="text-6xl text-center p-4 py-6 uppercase">camping</h1>
+        <Heading text="Camping" />
         {data.pagez.camping
           ? data.pagez.camping.map(function (block, i) {
               return (
