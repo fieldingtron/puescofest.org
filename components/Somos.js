@@ -7,7 +7,10 @@ export default function Somos({ data }) {
   // console.log("somos");
   // console.log(data.pagez);
   return (
-    <section id="somos" className="dark:bg-darkBlue3 bg-teal-500/50">
+    <section
+      id="somos"
+      className="dark:bg-darkBlue3 bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom lg:bg-mujer"
+    >
       <Heading text="Somos" />
 
       <div className="container flex flex-col-reverse mx-auto p-6 lg:flex-row lg:mb-0">

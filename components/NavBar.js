@@ -46,8 +46,8 @@ export default function NavBar() {
             </a>
             <a
               href="#actividades"
-              data-te-smooth-scroll-initclassName="  hover:text-softRed"
               data-te-smooth-scroll-init
+              className="  hover:text-softRed"
             >
               Actividades
             </a>
