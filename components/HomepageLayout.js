@@ -69,7 +69,7 @@ export const HomepageLayout = (props) => {
           />
 
           <p className="text-center my-2 mb-4">
-            ©2023 PuescoFest | Diseño y Programación por{" "}
+            ©2024 PuescoFest | Diseño y Programación por{" "}
             <a href="https://fieldsmarshall.com/" target="_blank">
               Fields Marshall
             </a>

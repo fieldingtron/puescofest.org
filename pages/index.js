@@ -1,44 +1,14 @@
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { HomepageLayout, Layout } from "../components/HomepageLayout";
-import { tinaField, useTina } from "tinacms/dist/react";
-import { client } from "../tina/__generated__/client";
-
-export default function Home(props) {
-  // data passes though in production mode and data is updated to the sidebar data in edit-mode
-  const { data } = useTina({
-    query: props.query,
-    variables: props.variables,
-    data: props.data,
-  });
-
-  const content = data.page.body;
-  const facebook = data.page.facebook;
-  const bands = data.page.bands;
-  //console.log(data.page);
-
+export default function Home() {
   return (
-    <HomepageLayout pagez={data.page}>
-      <h2 data-tina-field={tinaField(data.page, "facebook")}>
-        {data.page.instagram} hello
-      </h2>
-      <div data-tina-field={tinaField(data.page, "body")}>
-        <TinaMarkdown content={content} />
+    <div>
+      <div className="h-full max-w-7xl mx-auto" key="divkeyflyer">
+        <img
+          src="/images/puesco-FLYER-2024-chakana.jpg"
+          alt="flyer foto"
+          key="flyer foto"
+          className="w-full cursor-zoom-in data-[te-lightbox-disabled]:cursor-auto"
+        />
       </div>
-    </HomepageLayout>
+    </div>
   );
 }
-
-export const getStaticProps = async () => {
-  const { data, query, variables } = await client.queries.page({
-    relativePath: "home.mdx",
-  });
-
-  return {
-    props: {
-      data,
-      query,
-      variables,
-      //myOtherProp: 'some-other-data',
-    },
-  };
-};
