@@ -300,8 +300,9 @@ const schema = defineSchema({
       ],
       ui: {
         router: ({ document }) => {
-          if (document._sys.filename === "home") {
-            return `/`;
+          //TODO: change this around later
+          if (document._sys.filename === "index2") {
+            return `/index2/`;
           }
           return undefined;
         },
