@@ -41,7 +41,7 @@ export default function Contact() {
   return (
     <section
       className="dark:bg-darkBlue3
-    bg-teal-500/50   bg-no-repeat bg-right-bottom bg-araucaria"
+    bg-alt2   bg-no-repeat bg-right-bottom bg-araucaria"
       id="contacto"
     >
       <Heading text="Contacto" />

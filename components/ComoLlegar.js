@@ -9,7 +9,7 @@ export default function ComoLLegar({ data }) {
     <section
       id="llegar"
       className=" dark:bg-darkBlue3
-      bg-teal-500/50     bg-no-repeat bg-right-bottom bg-fixed lg:bg-martin-pescador"
+      bg-alt2 bg-no-repeat bg-right-bottom bg-fixed lg:bg-martin-pescador"
     >
       <div className="container p-6 mx-auto">
         <Heading text="Como Llegar" />

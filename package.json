@@ -1,6 +1,6 @@
 {
-  "name": "starter-basic",
-  "version": "0.1.0",
+  "name": "puescofest",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",

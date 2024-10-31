@@ -9,7 +9,7 @@ export default function Kayak({ data }) {
     <section
       id="kayak"
       className="dark:bg-darkBlue3
-       bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom lg:bg-morchelas"
+       bg-alt2 bg-fixed bg-no-repeat bg-right-bottom lg:bg-morchelas"
     >
       <div className="container p-6 mx-auto">
         <Heading text="Campeonato de Kayak" />

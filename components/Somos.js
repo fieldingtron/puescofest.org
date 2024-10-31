@@ -11,7 +11,7 @@ export default function Somos({ data }) {
   return (
     <section
       id="somos"
-      className="dark:bg-darkBlue3 bg-teal-500/50 bg-fixed bg-no-repeat bg-right-bottom lg:bg-mujer"
+      className="dark:bg-darkBlue3 bg-alt2 bg-fixed bg-no-repeat bg-right-bottom lg:bg-mujer"
     >
       <Heading text="Somos" />
 

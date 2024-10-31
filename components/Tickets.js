@@ -9,7 +9,7 @@ export default function Tickets({ data }) {
     <section
       id="tickets"
       className="dark:bg-darkBlue3
-      bg-teal-500/50   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
+      bg-alt2   bg-no-repeat bg-right-bottom bg-fixed md:bg-mujer"
     >
       <div className="container p-6 mx-auto">
         <Heading text="Tickets" />
