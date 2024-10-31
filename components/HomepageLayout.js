@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Head from "next/head";
 import Kayak from "./Kayak";
 import Musica from "./Musica";
@@ -9,7 +8,6 @@ import Somos from "./Somos";
 import ModalBand from "./ModalBand";
 import Modals2 from "./Modals2";
 import Tickets from "./Tickets";
-import FAQ from "./FAQ";
 import Fotos from "./Fotos";
 import Landing from "./Landing";
 import Video from "./Video";
@@ -77,8 +75,6 @@ export const HomepageLayout = (props) => {
         </div>
       </footer>
       <Script src="/js/tw-elements.umd.min.js" strategy="lazyOnload" />
-      {/* <Script src="/js/jqBootstrapValidation.js" strategy="beforeInteractive" /> */}
-      {/* <Script src="/js/contact_me.js" strategy="lazyOnload" /> */}
     </>
   );
 };
