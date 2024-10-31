@@ -8,7 +8,7 @@ export default function Video(props) {
       <div className="container mx-auto p-6 lg:mb-0">
         <iframe
           className="w-full aspect-video"
-          src="https://www.youtube.com/embed/tsdI_UzVduU?si=x3WsG92__k_DHwGb"
+          src="https://www.youtube.com/embed/L-q46gGVI8k?si=M8tRNIx52tA4XTFB"
         ></iframe>
       </div>
     </section>
