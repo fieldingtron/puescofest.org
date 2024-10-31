@@ -1,6 +1,6 @@
 export default function ButtonTicket({ text }) {
   return (
-    <div className="mt-6 flex justify-center lg:justify-start">
+    <div className="mt-6 flex justify-center ">
       <a
         href="https://goldenpass.cl/puesco-fest-2024-roots-kayak/"
         target="_blank"
