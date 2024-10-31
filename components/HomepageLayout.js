@@ -61,7 +61,7 @@ export const HomepageLayout = (props) => {
       <footer>
         <div className="container mx-auto  ">
           <img
-            src="/images/sponsors.png"
+            src="/images/sponsors2024.png"
             alt="Sponsors"
             className="py-2 mx-auto"
           />
