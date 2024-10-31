@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{html,js}",
+    "./components/**/*.{html,js,jsx}",
     "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   darkMode: "class",
@@ -46,5 +46,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tw-elements/dist/plugin.cjs")],
+  plugins: [
+    require("tw-elements/dist/plugin.cjs"),
+    require("@tailwindcss/typography"),
+  ],
 };

@@ -66,12 +66,11 @@ const schema = defineSchema({
           name: "landingDarkImageSrc",
         },
         {
-          type: "string",
+          type: "rich-text",
           label: "Intro Text",
+          isBody: false,
+
           name: "introtext",
-          ui: {
-            component: "textarea",
-          },
         },
         {
           type: "image",

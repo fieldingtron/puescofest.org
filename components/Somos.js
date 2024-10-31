@@ -2,10 +2,12 @@ import React from "react";
 import { tinaField, useTina } from "tinacms/dist/react";
 import { Block } from "./Blockz";
 import Heading from "./Heading";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+import MarkdownContent from "./MarkdownContent";
 
 export default function Somos({ data }) {
   // console.log("somos");
-  // console.log(data.pagez);
+  //console.log(data.pagez.introtext);
   return (
     <section
       id="somos"
@@ -13,42 +15,32 @@ export default function Somos({ data }) {
     >
       <Heading text="Somos" />
 
-      <div className="container flex flex-col-reverse mx-auto p-6 lg:flex-row lg:mb-0">
-        {/* <!-- Content --> */}
+      <div className="container flex flex-col-reverse mx-auto p-6 lg:flex-row lg:space-x-8 lg:mb-0">
+        {/* Text Section */}
+        <div className="lg:w-1/2 text-lg text-center lg:text-left lg:text-xl lg:mt-0">
+          <MarkdownContent markdownText={data.pagez.introtext} />
 
-        <div className="flex flex-col space-y-10 lg:mt-10 lg:w-1/2">
-          <p
-            className="max-w-md mx-auto text-lg text-center lg:text-xl   lg:mt-0 lg:mx-0"
-            data-tina-field={tinaField(data.pagez, "introtext")}
-          >
-            {data.pagez.introtext}
-          </p>
-
-          <div className="flex items-center justify-center w-full space-x-4 lg:justify-start">
+          {/* Button Section */}
+          <div className="mt-6 flex justify-center lg:justify-start">
             <a
               href="https://goldenpass.cl/puesco-fest-2024-roots-kayak/"
-              className="p-4 px-8  text-sm font-semibold text-black bg-gray-300 rounded shadow-md border-2 border-gray-300 md:text-xl hover:bg-white hover:text-gray-600 uppercase tracking-widest"
+              className="p-6 px-16 text-lg font-semibold text-black bg-gray-300 rounded-lg shadow-md border-2 border-gray-300 hover:bg-white hover:text-gray-600 uppercase tracking-widest"
             >
               Entradas
             </a>
-            {/* <a
-              href="https://drive.google.com/file/d/1gVE5srg8fxbXW3oEZ-2zfPa0b8d2EBwd/view?usp=sharing"
-              target="_blank"
-              className="p-4 px-8   text-sm font-semibold text-white bg-blue-400 rounded shadow-md border-2 border-softBlue md:text-xl hover:bg-red-400 hover:text-softBlue uppercase"
-            >
-              Programa
-            </a> */}
           </div>
         </div>
 
-        {/* <!-- Image --> */}
-        <div className="relative mx-auto lg:mx-0 lg:mb-0 lg:w-1/2 pb-3">
-          <img
-            src={data.pagez.somosImgSrc}
-            alt="Somos PuescoFest"
-            className="relative z-10 lg:top-24 xl:top-0 overflow-x-hidden imgSquare imgTallRect"
-            data-tina-field={tinaField(data.pagez, "somosImgSrc")}
-          />
+        {/* Image Section */}
+        <div className="lg:w-1/2 flex justify-center lg:justify-end my-4">
+          <div className="w-full max-w-sm md:max-w-md lg:max-w-full h-80 lg:h-auto overflow-hidden">
+            <img
+              src={data.pagez.somosImgSrc}
+              alt="Somos PuescoFest"
+              className="w-full h-full object-cover"
+              data-tina-field={tinaField(data.pagez, "somosImgSrc")}
+            />
+          </div>
         </div>
       </div>
     </section>
