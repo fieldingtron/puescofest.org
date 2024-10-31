@@ -4,6 +4,7 @@ import { Block } from "./Blockz";
 import Heading from "./Heading";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import MarkdownContent from "./MarkdownContent";
+import ButtonTicket from "./ButtonTicket";
 
 export default function Somos({ data }) {
   // console.log("somos");
@@ -21,14 +22,7 @@ export default function Somos({ data }) {
           <MarkdownContent markdownText={data.pagez.introtext} />
 
           {/* Button Section */}
-          <div className="mt-6 flex justify-center lg:justify-start">
-            <a
-              href="https://goldenpass.cl/puesco-fest-2024-roots-kayak/"
-              className="p-6 px-16 text-lg font-semibold text-black bg-gray-300 rounded-lg shadow-md border-2 border-gray-300 hover:bg-white hover:text-gray-600 uppercase tracking-widest"
-            >
-              Entradas
-            </a>
-          </div>
+          <ButtonTicket text="Entrada" />
         </div>
 
         {/* Image Section */}
