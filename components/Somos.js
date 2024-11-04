@@ -19,7 +19,9 @@ export default function Somos({ data }) {
       <div className="container flex flex-col-reverse mx-auto p-6 lg:flex-row lg:space-x-8 lg:mb-0">
         {/* Text Section */}
         <div className="lg:w-1/2 text-lg text-center lg:text-left lg:text-xl lg:mt-0">
-          <MarkdownContent markdownText={data.pagez.introtext} />
+          <div data-tina-field={tinaField(data.pagez, "introtext")}>
+            <MarkdownContent markdownText={data.pagez.introtext} />
+          </div>
 
           {/* Button Section */}
           <ButtonTicket text="Entrada" />
