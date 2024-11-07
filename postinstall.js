@@ -2,9 +2,8 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const readline = require("node:readline");
 
-// Check if running in production based on NODE_ENV or VERCEL_ENV
+// Check if running in production based on // Check if running in production based on CONTEXT or VERCEL_ENV
 if (
-  process.env.NODE_ENV?.toLowerCase() === "production" ||
   process.env.VERCEL_ENV?.toLowerCase() === "production" ||
   process.env.CONTEXT?.toLowerCase() === "production"
 ) {
