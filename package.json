@@ -6,8 +6,7 @@
     "dev": "tinacms dev -c \"next dev\"",
     "build": "tinacms build && next build",
     "postbuild": "copyfiles -u 4 node_modules/tw-elements/dist/js/tw-elements.umd.min.* public/js",
-    "postinstall": "node postinstall.js"
-,
+    "postinstall": "node postinstall.js",
     "start": "tinacms build && next start",
     "lint": "next lint"
   },

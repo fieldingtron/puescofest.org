@@ -2,6 +2,14 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const readline = require("node:readline");
 
+// Check if running in production
+if (process.env.NODE_ENV === "production") {
+  console.log(
+    "Production environment detected. Skipping encryption/decryption."
+  );
+  process.exit(0); // Exit the script without running any further
+}
+
 // Helper function to prompt for a password
 function promptPassword(question) {
   const rl = readline.createInterface({
