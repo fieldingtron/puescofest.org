@@ -61,19 +61,28 @@ export const HomepageLayout = (props) => {
       <footer>
         <div className="container mx-auto  ">
           <img
-            src="/images/sponsors2024.png"
+            src="/images/sponsorsFINAL.png"
             alt="Sponsors"
             className="py-2 mx-auto"
           />
 
           <p className="text-center my-2 mb-4">
             ©2024 PuescoFest | Diseño por{" "}
-            <a href="https://www.instagram.com/fields.marshall" target="_blank">
+            <a
+              href="https://www.instagram.com/fields.marshall/"
+              target="_blank"
+            >
               Fields Marshall
             </a>{" "}
-            y{" "}
-            <a href="https://www.instagram.com/tom_galvez" target="_blank">
+            <a href="https://www.instagram.com/tom_galvez/" target="_blank">
               Tom Galvez
+            </a>{" "}
+            y{" "}
+            <a
+              href="https://www.instagram.com/rudeboysclothing/"
+              target="_blank"
+            >
+              Rudeboys Clothing
             </a>
           </p>
         </div>
