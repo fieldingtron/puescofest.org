@@ -1,0 +1,35 @@
+name: Optimize Images
+
+on:
+  push:
+    paths:
+      - "public/uploads/**/*.jpg"
+      - "public/uploads/**/*.jpeg"
+      - "public/uploads/**/*.png"
+      - "public/uploads/**/*.webp"
+
+jobs:
+  optimize-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run image optimizer
+        run: node resize-compress.js
+
+      - name: Commit optimized images
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/uploads/ .image-optimized.json
+          git diff --cached --quiet || (git commit -m 'Optimize images' && git push)
