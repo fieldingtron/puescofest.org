@@ -1,6 +1,53 @@
 const { Resend } = require("resend");
 
+// Email configuration
+const EMAIL_CONFIG = {
+  subject: process.env.EMAIL_SUBJECT || "PuescoFest Website Contact Form",
+  fromEmail: process.env.FROM_EMAIL || "no-reply@onresend.com",
+  toEmail: process.env.TO_EMAIL || "info@puescofest.org",
+};
+
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Helper function to create email content
+const createEmailContent = (name, email, message) => {
+  const text = `
+Name: ${name}
+Email: ${email}
+Message:
+${message}
+`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .field { margin-bottom: 20px; }
+    .label { font-weight: bold; }
+    .message { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <div class="field">
+    <div class="label">Name:</div>
+    <div>${name}</div>
+  </div>
+  <div class="field">
+    <div class="label">Email:</div>
+    <div>${email}</div>
+  </div>
+  <div class="field">
+    <div class="label">Message:</div>
+    <div class="message">${message.replace(/\n/g, "<br/>")}</div>
+  </div>
+</body>
+</html>
+`;
+
+  return { text, html };
+};
 
 exports.handler = async (event, context) => {
   console.log("[Email Function] Request received:", {
@@ -70,16 +117,18 @@ exports.handler = async (event, context) => {
     // Verify environment variables
     console.log("[Email Function] Environment check:", {
       hasResendKey: !!process.env.RESEND_API_KEY,
-      fromEmail: process.env.FROM_EMAIL || "no-reply@onresend.com",
-      toEmail: process.env.TO_EMAIL || "lunakayakera@gmail.com",
+      fromEmail: EMAIL_CONFIG.fromEmail,
+      toEmail: EMAIL_CONFIG.toEmail,
+      subject: EMAIL_CONFIG.subject,
     });
 
+    const { text, html } = createEmailContent(name, email, message);
     const emailResponse = await resend.emails.send({
-      from: process.env.FROM_EMAIL || "no-reply@onresend.com",
-      to: process.env.TO_EMAIL || "lunakayakera@gmail.com",
-      subject: `TierraGirasol Website Contact Form ${name}`,
-      html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`,
-      text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+      from: EMAIL_CONFIG.fromEmail,
+      to: EMAIL_CONFIG.toEmail,
+      subject: `${EMAIL_CONFIG.subject} - ${name}`,
+      html,
+      text,
     });
 
     console.log("[Email Function] Email sent successfully:", emailResponse);
