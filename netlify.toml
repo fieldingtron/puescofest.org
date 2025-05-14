@@ -5,7 +5,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  node_bundler_version = "22"
+  external_node_modules = ["resend"]
 
 [[redirects]]
   from = "/api/*"
