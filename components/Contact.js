@@ -15,32 +15,35 @@ export default function Contact() {
 
   // Submit handler
   async function submitForm(data) {
-    console.log("Form Data:", data);
-
-    const EMAIL_URL = process.env.NEXT_PUBLIC_EMAIL_URL;
-
-    if (!EMAIL_URL) {
-      console.error("NEXT_PUBLIC_EMAIL_URL is not defined.");
-      return;
-    }
-
-    // Construct FormData to send to CF7
-    const formData = new FormData();
-    formData.append("_wpcf7", "327"); // Form ID
-    formData.append("_wpcf7_unit_tag", "d409a3d"); // CF7 Unit Tag
-    formData.append("your-name", data["your-name"]);
-    formData.append("your-email", data["your-email"]);
-    formData.append("your-message", data["your-message"]);
+    console.log("[Contact Form] Starting form submission with data:", {
+      name: data["your-name"],
+      email: data["your-email"],
+      messageLength: data["your-message"]?.length,
+    });
 
     try {
-      const response = await axios.post(EMAIL_URL, formData);
-      console.log("Form submission successful:", response.data);
+      console.log("[Contact Form] Sending request to Netlify function...");
+      const response = await axios.post("/.netlify/functions/send-email", {
+        "your-name": data["your-name"],
+        "your-email": data["your-email"],
+        "your-message": data["your-message"],
+        honeypot: "", // Add empty honeypot field
+      });
+
+      console.log("[Contact Form] Response received:", {
+        status: response.status,
+        statusText: response.statusText,
+        data: response.data,
+      });
       setResponse(true); // Show "ENVIADO" message
     } catch (error) {
-      console.error(
-        "Error submitting form:",
-        error.response?.data || error.message
-      );
+      console.error("[Contact Form] Error details:", {
+        message: error.message,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        stack: error.stack,
+      });
     }
   }
 

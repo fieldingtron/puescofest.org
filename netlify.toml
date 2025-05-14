@@ -1,0 +1,13 @@
+[build]
+  functions = "netlify/functions"
+  publish = "out"
+  environment = { NODE_VERSION = "22" }
+
+[functions]
+  node_bundler = "esbuild"
+  node_bundler_version = "22"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
