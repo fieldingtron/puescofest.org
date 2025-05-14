@@ -332,6 +332,9 @@ export const config = defineConfig({
   build: {
     publicFolder: "public", // The public asset folder for your framework
     outputFolder: "admin", // within the public folder
+    useStaticBuild: true,
+    basePath: "admin",
+    maxChunkSize: 10000, // Reduce chunk size to prevent memory issues
   },
   schema,
 });
