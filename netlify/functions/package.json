@@ -1,8 +1,0 @@
-{
-  "name": "puescofest-functions",
-  "version": "1.0.0",
-  "dependencies": {
-    "resend": "^2.1.0"
-  }
-}
-}
