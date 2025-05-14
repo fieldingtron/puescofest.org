@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' tinacms build && next build && next export",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' tinacms build && next build",
     "postbuild": "copyfiles -u 4 node_modules/tw-elements/dist/js/tw-elements.umd.min.* public/js",
     "postinstall": "node postinstall.js",
     "start": "tinacms build && next start",
