@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' tinacms build && next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' tinacms build && next build && npm run copy-function-deps",
+    "copy-function-deps": "mkdir -p netlify/functions/node_modules && cp -r node_modules/resend netlify/functions/node_modules/",
     "postbuild": "copyfiles -u 4 node_modules/tw-elements/dist/js/tw-elements.umd.min.* public/js",
     "postinstall": "node postinstall.js",
     "start": "tinacms build && next start",
@@ -20,7 +21,8 @@
     "react-hook-form": "^7.53.1",
     "react-markdown": "^9.0.1",
     "tinacms": "^2.7.7",
-    "tw-elements": "1.0.0"
+    "tw-elements": "1.0.0",
+    "resend": "^2.1.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
