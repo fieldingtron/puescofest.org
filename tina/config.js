@@ -318,16 +318,37 @@ export const config = defineConfig({
     process.env.HEAD, // Netlify branch env
   token: process.env.TINA_TOKEN,
   media: {
-    // If you wanted cloudinary do this
-    // loadCustomStore: async () => {
-    //   const pack = await import("next-tinacms-cloudinary");
-    //   return pack.TinaCloudCloudinaryMediaStore;
-    // },
-    // this is the config for the tina cloud media store
     tina: {
       publicFolder: "public",
-      mediaRoot: "uploads",
+      mediaRoot: "uploads"
     },
+    // Add custom filename sanitization
+    loadCustomStore: async () => {
+      const { createMediaStore } = await import("tinacms");
+      return createMediaStore({
+        async persist(files) {
+          // Sanitize filenames before saving
+          const sanitizedFiles = files.map(file => {
+            // Remove special characters, replace spaces with hyphens
+            const sanitizedName = file.name
+              .toLowerCase()
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '') // Remove diacritics (tildes, etc.)
+              .replace(/[^a-z0-9-_.]/g, '-') // Replace special chars with hyphens
+              .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+              .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+            
+            return {
+              ...file,
+              name: sanitizedName
+            };
+          });
+          
+          // Return the sanitized files array
+          return sanitizedFiles;
+        }
+      });
+    }
   },
   build: {
     publicFolder: "public", // The public asset folder for your framework
