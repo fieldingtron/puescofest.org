@@ -6,6 +6,12 @@ const nextConfig = {
   },
   // Note: rewrites are not supported with output: export
   trailingSlash: true, // This helps with static hosting
+  async exportPathMap(defaultPathMap) {
+    return {
+      ...defaultPathMap,
+      "/admin": { page: "/admin.html" },
+    };
+  },
 };
 
 module.exports = nextConfig;
