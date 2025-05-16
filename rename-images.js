@@ -1,6 +1,17 @@
 const fs = require("fs").promises;
+const fsSync = require("fs");
 const path = require("path");
 const { readdir } = require("fs").promises;
+
+// Load or initialize the rename log
+const RENAME_LOG_PATH = path.join(process.cwd(), "rename-log.json");
+let renameLog;
+try {
+  renameLog = JSON.parse(fsSync.readFileSync(RENAME_LOG_PATH, "utf8"));
+} catch (e) {
+  renameLog = { renamedFiles: [] };
+  fsSync.writeFileSync(RENAME_LOG_PATH, JSON.stringify(renameLog, null, 2));
+}
 
 /**
  * Sanitizes filenames by:
@@ -35,8 +46,19 @@ const sanitizeFileName = (filename) => {
  * Handles both /uploads/ prefixed and root-level paths
  */
 async function updateMdxReferences(oldPath, newPath) {
+  // Log the rename operation
+  const renameEntry = {
+    oldPath: oldPath,
+    newPath: newPath,
+    timestamp: new Date().toISOString(),
+  };
+  renameLog.renamedFiles.push(renameEntry);
+  await fs.writeFile(RENAME_LOG_PATH, JSON.stringify(renameLog, null, 2));
+
   const contentDir = path.join(process.cwd(), "content");
   const mdxFiles = await readdir(contentDir, { recursive: true });
+  let updatedFiles = 0;
+
   for (const file of mdxFiles) {
     if (file.endsWith(".mdx")) {
       const filePath = path.join(contentDir, file);
@@ -51,6 +73,8 @@ async function updateMdxReferences(oldPath, newPath) {
       const updatedContent = content.replace(regex, `/uploads/${newBasename}`);
       if (content !== updatedContent) {
         await fs.writeFile(filePath, updatedContent, "utf8");
+        console.log(`Updated references in ${filePath}`);
+        updatedFiles++;
         console.log(`Updated references in ${file}:
   ${oldBasename} → ${newBasename}`);
       }

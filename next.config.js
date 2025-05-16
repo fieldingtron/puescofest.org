@@ -4,13 +4,16 @@ const nextConfig = {
   images: {
     unoptimized: true, // Required for static export
   },
-  // Note: rewrites are not supported with output: export
   trailingSlash: true, // This helps with static hosting
-  async exportPathMap(defaultPathMap) {
-    return {
-      ...defaultPathMap,
-      "/admin": { page: "/admin.html" },
-    };
+  async redirects() {
+    return [
+      // Add your redirects here, for example:
+      // {
+      //   source: '/old-page',
+      //   destination: '/new-page',
+      //   permanent: true,
+      // },
+    ];
   },
 };
 
