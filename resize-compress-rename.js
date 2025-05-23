@@ -141,7 +141,10 @@ async function processImage(filePath) {
       try {
         // First check if the file exists and is accessible
         try {
-          await fsPromises.access(filePath, fs.constants.R_OK | fs.constants.W_OK);
+          await fsPromises.access(
+            filePath,
+            fs.constants.R_OK | fs.constants.W_OK
+          );
         } catch (accessErr) {
           console.error(`Cannot access file ${filePath}: ${accessErr.message}`);
           return; // Skip this file
@@ -153,9 +156,11 @@ async function processImage(filePath) {
           // If we get here, the file exists - try to remove it first
           try {
             await fsPromises.unlink(newFilePath);
-            await new Promise(resolve => setTimeout(resolve, 200)); // Wait for file system
+            await new Promise((resolve) => setTimeout(resolve, 200)); // Wait for file system
           } catch (unlinkErr) {
-            console.error(`Cannot remove existing file ${newFilePath}: ${unlinkErr.message}`);
+            console.error(
+              `Cannot remove existing file ${newFilePath}: ${unlinkErr.message}`
+            );
             return; // Skip further processing
           }
         } catch (accessErr) {
@@ -165,33 +170,41 @@ async function processImage(filePath) {
         // Directly rename the file (Windows often has issues with temp files)
         try {
           await fsPromises.rename(filePath, newFilePath);
-          await new Promise(resolve => setTimeout(resolve, 200)); // Wait for file system
+          await new Promise((resolve) => setTimeout(resolve, 200)); // Wait for file system
           await updateMdxReferences(filePath, newFilePath);
           fileToProcess = newFilePath;
         } catch (renameErr) {
           // If rename fails (which can happen on Windows), try copy and delete approach
-          console.log(`Direct rename failed, trying copy method for ${filePath}`);
-          
+          console.log(
+            `Direct rename failed, trying copy method for ${filePath}`
+          );
+
           try {
             // Copy file then delete original
             await fsPromises.copyFile(filePath, newFilePath);
-            await new Promise(resolve => setTimeout(resolve, 200)); // Wait for file system
-            
+            await new Promise((resolve) => setTimeout(resolve, 200)); // Wait for file system
+
             try {
               await fsPromises.unlink(filePath);
             } catch (unlinkErr) {
-              console.warn(`Warning: Could not delete original file ${filePath}, but continuing with copy.`);
+              console.warn(
+                `Warning: Could not delete original file ${filePath}, but continuing with copy.`
+              );
             }
-            
+
             await updateMdxReferences(filePath, newFilePath);
             fileToProcess = newFilePath;
           } catch (copyErr) {
-            console.error(`Failed to copy ${filePath} to ${newFilePath}: ${copyErr.message}`);
+            console.error(
+              `Failed to copy ${filePath} to ${newFilePath}: ${copyErr.message}`
+            );
             return; // Skip further processing
           }
         }
       } catch (err) {
-        console.error(`Error in rename process for ${filePath}: ${err.message}`);
+        console.error(
+          `Error in rename process for ${filePath}: ${err.message}`
+        );
         return; // Skip further processing
       }
     }
@@ -211,7 +224,10 @@ async function processImage(filePath) {
 
       // Resize if necessary
       const resizeOptions = {};
-      if (metadata.width > metadata.height && metadata.width > maxWidthOrHeight) {
+      if (
+        metadata.width > metadata.height &&
+        metadata.width > maxWidthOrHeight
+      ) {
         resizeOptions.width = maxWidthOrHeight;
       } else if (metadata.height > maxWidthOrHeight) {
         resizeOptions.height = maxWidthOrHeight;
@@ -234,7 +250,9 @@ async function processImage(filePath) {
         await fsPromises
           .writeFile(dbPath, JSON.stringify(optimizedDB, null, 2))
           .catch((err) =>
-            console.error(`Error updating optimization database: ${err.message}`)
+            console.error(
+              `Error updating optimization database: ${err.message}`
+            )
           );
         return;
       } else {
@@ -274,34 +292,40 @@ async function processImage(filePath) {
         const stats = await fsPromises.stat(fileToProcess);
         originalSize = stats.size;
       } catch (statErr) {
-        console.error(`Error getting file size for ${fileToProcess}: ${statErr.message}`);
+        console.error(
+          `Error getting file size for ${fileToProcess}: ${statErr.message}`
+        );
         originalSize = 0;
       }
-      
+
       const resizedSize = buffer.length;
 
       // Use a temporary file path in a different location to avoid conflicts
       const tempFilePath = path.join(
         path.dirname(fileToProcess),
-        `._temp_${Math.random().toString(36).substring(2)}_${path.basename(fileToProcess)}`
+        `._temp_${Math.random().toString(36).substring(2)}_${path.basename(
+          fileToProcess
+        )}`
       );
 
       try {
         // Write the buffer to a temporary file
         await fsPromises.writeFile(tempFilePath, buffer);
-        await new Promise(resolve => setTimeout(resolve, 300)); // Wait longer for file system
+        await new Promise((resolve) => setTimeout(resolve, 300)); // Wait longer for file system
 
         // Ensure the target file is not locked by opening handles
         try {
           await fsPromises.access(fileToProcess, fs.constants.W_OK);
         } catch (accessErr) {
-          console.warn(`Warning: Cannot write to ${fileToProcess}, may be locked: ${accessErr.message}`);
-          
+          console.warn(
+            `Warning: Cannot write to ${fileToProcess}, may be locked: ${accessErr.message}`
+          );
+
           // Try to force close any open handles (Windows specific)
-          if (process.platform === 'win32') {
+          if (process.platform === "win32") {
             try {
               // Only attempt on Windows
-              await new Promise(resolve => setTimeout(resolve, 1000)); // Extra wait time
+              await new Promise((resolve) => setTimeout(resolve, 1000)); // Extra wait time
             } catch (e) {}
           }
         }
@@ -309,9 +333,11 @@ async function processImage(filePath) {
         try {
           // First try to remove the original
           await fsPromises.unlink(fileToProcess);
-          await new Promise(resolve => setTimeout(resolve, 300));
+          await new Promise((resolve) => setTimeout(resolve, 300));
         } catch (unlinkErr) {
-          console.warn(`Warning: Could not delete ${fileToProcess} before replacing: ${unlinkErr.message}`);
+          console.warn(
+            `Warning: Could not delete ${fileToProcess} before replacing: ${unlinkErr.message}`
+          );
           // Try to replace anyway
         }
 
@@ -325,10 +351,15 @@ async function processImage(filePath) {
 
         // Update the optimization database with the hash of the optimized file
         optimizedDB[normalizedPath] = getFileHash(fileToProcess);
-        await fsPromises.writeFile(dbPath, JSON.stringify(optimizedDB, null, 2));
+        await fsPromises.writeFile(
+          dbPath,
+          JSON.stringify(optimizedDB, null, 2)
+        );
       } catch (saveErr) {
-        console.error(`Error saving optimized file ${fileToProcess}: ${saveErr.message}`);
-        
+        console.error(
+          `Error saving optimized file ${fileToProcess}: ${saveErr.message}`
+        );
+
         // Try to clean up temp file if it exists
         try {
           await fsPromises.unlink(tempFilePath).catch(() => {});
@@ -337,18 +368,24 @@ async function processImage(filePath) {
         }
       }
     } catch (processingErr) {
-      console.error(`Error processing image data for ${fileToProcess}: ${processingErr.message}`);
-      
+      console.error(
+        `Error processing image data for ${fileToProcess}: ${processingErr.message}`
+      );
+
       // Mark this file as processed to avoid retrying endlessly
       optimizedDB[normalizedPath] = "error-processing";
       try {
-        await fsPromises.writeFile(dbPath, JSON.stringify(optimizedDB, null, 2));
+        await fsPromises.writeFile(
+          dbPath,
+          JSON.stringify(optimizedDB, null, 2)
+        );
       } catch (dbErr) {
         // Ignore DB write errors at this point
       }
-    }  } catch (error) {
+    }
+  } catch (error) {
     console.error(`Error processing image ${filePath}:`, error.message);
-    
+
     // Mark as processed with error to avoid retrying
     try {
       const normalizedPath = normalizePath(filePath);
@@ -389,7 +426,7 @@ async function main() {
   try {
     console.log("Starting image processing (rename, resize, optimize)...");
     console.log(`Scanning directory: ${inputDir}`);
-    
+
     // Make sure the upload directory exists
     try {
       await fsPromises.access(inputDir);
@@ -397,7 +434,7 @@ async function main() {
       console.log(`Creating directory ${inputDir}`);
       await fsPromises.mkdir(inputDir, { recursive: true });
     }
-    
+
     await processDirectory(inputDir);
     console.log("\n✅ Image processing completed successfully!");
   } catch (error) {

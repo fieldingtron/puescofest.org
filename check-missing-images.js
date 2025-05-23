@@ -4,17 +4,17 @@
  * It will output a list of all missing images.
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Configuration
-const mdxFilePath = path.join(process.cwd(), 'content', 'page', 'home.mdx');
-const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+const mdxFilePath = path.join(process.cwd(), "content", "page", "home.mdx");
+const uploadsDir = path.join(process.cwd(), "public", "uploads");
 
 // Function to extract image paths from MDX content
 function extractImagePaths(content) {
   const imagePaths = new Set();
-  
+
   // Extract images from frontmatter properties ending with Src or imgSrc
   const srcRegex = /(\w+(?:Src|imgSrc)):\s*\/uploads\/([^\s]+)/g;
   let match;
@@ -27,7 +27,7 @@ function extractImagePaths(content) {
   while ((match = arrayRegex.exec(content)) !== null) {
     imagePaths.add(`/uploads/${match[1]}`);
   }
-  
+
   // Extract any other image references in the content
   const markdownImgRegex = /!\[.*?\]\(\/uploads\/([^)]+)\)/g;
   while ((match = markdownImgRegex.exec(content)) !== null) {
@@ -40,7 +40,7 @@ function extractImagePaths(content) {
     imagePaths.add(match[1]);
   }
 
-  console.log('Debug - Found image paths:', Array.from(imagePaths));
+  console.log("Debug - Found image paths:", Array.from(imagePaths));
   return Array.from(imagePaths);
 }
 
@@ -49,11 +49,11 @@ function checkMissingImages(imagePaths) {
   const missingImages = [];
   const existingImages = [];
 
-  imagePaths.forEach(imagePath => {
+  imagePaths.forEach((imagePath) => {
     // Extract just the filename from the /uploads/ path
     const filename = path.basename(imagePath);
     const filePath = path.join(uploadsDir, filename);
-    
+
     if (!fs.existsSync(filePath)) {
       missingImages.push({ reference: imagePath, expectedPath: filePath });
     } else {
@@ -66,7 +66,7 @@ function checkMissingImages(imagePaths) {
 
 // Main function
 function main() {
-  console.log('Checking for missing images in home.mdx...\n');
+  console.log("Checking for missing images in home.mdx...\n");
 
   try {
     // Check if uploads directory exists
@@ -76,33 +76,36 @@ function main() {
     }
 
     // Read MDX content
-    const mdxContent = fs.readFileSync(mdxFilePath, 'utf8');
-    
+    const mdxContent = fs.readFileSync(mdxFilePath, "utf8");
+
     // Extract image paths
     const imagePaths = extractImagePaths(mdxContent);
     console.log(`Found ${imagePaths.length} image references in home.mdx`);
-    
+
     // Check which images are missing
     const { missingImages, existingImages } = checkMissingImages(imagePaths);
-    
+
     // Output results
     console.log(`\n${existingImages.length} images exist in uploads directory`);
-    console.log(`${missingImages.length} images are missing from uploads directory\n`);
-    
+    console.log(
+      `${missingImages.length} images are missing from uploads directory\n`
+    );
+
     if (missingImages.length > 0) {
-      console.log('Missing Images:');
-      console.log('---------------------------------------------');
+      console.log("Missing Images:");
+      console.log("---------------------------------------------");
       missingImages.forEach((item, index) => {
         console.log(`${index + 1}. Referenced as: ${item.reference}`);
         console.log(`   Expected at: ${item.expectedPath}`);
-        console.log('');
+        console.log("");
       });
     } else {
-      console.log('All images referenced in home.mdx exist in the uploads directory! 🎉');
+      console.log(
+        "All images referenced in home.mdx exist in the uploads directory! 🎉"
+      );
     }
-
   } catch (error) {
-    console.error('Error checking images:', error.message);
+    console.error("Error checking images:", error.message);
   }
 }
 

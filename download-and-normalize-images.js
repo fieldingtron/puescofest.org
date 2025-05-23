@@ -6,7 +6,8 @@ const { promises: fsPromises } = fs;
 // Configuration
 const mdxFilePath = path.join(process.cwd(), "content", "page", "home.mdx");
 const uploadsDir = path.join(process.cwd(), "public", "uploads");
-const tinaAssetsBaseUrl = "https://assets.tina.io/c0bd0eea-2aee-4208-9cf0-b9f9322f0ead";
+const tinaAssetsBaseUrl =
+  "https://assets.tina.io/c0bd0eea-2aee-4208-9cf0-b9f9322f0ead";
 
 /**
  * Sanitizes filenames by:
@@ -37,28 +38,34 @@ async function downloadFile(url, destination) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destination);
 
-    https.get(url, (response) => {
-      if (response.statusCode !== 200) {
-        reject(new Error(`Failed to download ${url}, status code: ${response.statusCode}`));
-        return;
-      }
+    https
+      .get(url, (response) => {
+        if (response.statusCode !== 200) {
+          reject(
+            new Error(
+              `Failed to download ${url}, status code: ${response.statusCode}`
+            )
+          );
+          return;
+        }
 
-      response.pipe(file);
+        response.pipe(file);
 
-      file.on("finish", () => {
-        file.close();
-        console.log(`✅ Downloaded: ${path.basename(destination)}`);
-        resolve();
-      });
+        file.on("finish", () => {
+          file.close();
+          console.log(`✅ Downloaded: ${path.basename(destination)}`);
+          resolve();
+        });
 
-      file.on("error", (err) => {
+        file.on("error", (err) => {
+          fs.unlink(destination, () => {}); // Delete the file if there was an error
+          reject(err);
+        });
+      })
+      .on("error", (err) => {
         fs.unlink(destination, () => {}); // Delete the file if there was an error
         reject(err);
       });
-    }).on("error", (err) => {
-      fs.unlink(destination, () => {}); // Delete the file if there was an error
-      reject(err);
-    });
   });
 }
 
@@ -68,14 +75,17 @@ async function downloadFile(url, destination) {
 async function updateMdxReferences(oldFilename, newFilename) {
   try {
     const content = await fsPromises.readFile(mdxFilePath, "utf8");
-    
+
     // Create regex patterns that match both with and without /uploads/ prefix
     const oldNamePattern = new RegExp(
       `(\/uploads\/)?${oldFilename.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
       "g"
     );
-    
-    const newContent = content.replace(oldNamePattern, `/uploads/${newFilename}`);
+
+    const newContent = content.replace(
+      oldNamePattern,
+      `/uploads/${newFilename}`
+    );
 
     if (content !== newContent) {
       await fsPromises.writeFile(mdxFilePath, newContent, "utf8");
@@ -95,13 +105,30 @@ async function downloadAndNormalizeImages() {
     // Get all image references from the MDX file
     const patterns = [
       // Standard imgSrc format
-      { regex: /imgSrc:\s*["']?(\/uploads\/([^"'\s]+))["']?/g, pathIndex: 1, filenameIndex: 2 },
+      {
+        regex: /imgSrc:\s*["']?(\/uploads\/([^"'\s]+))["']?/g,
+        pathIndex: 1,
+        filenameIndex: 2,
+      },
       // Special fields like landingImageSrc
-      { regex: /(landingImageSrc|landingDarkImageSrc|somosImgSrc):\s*["']?(\/uploads\/([^"'\s]+))["']?/g, pathIndex: 2, filenameIndex: 3 },
+      {
+        regex:
+          /(landingImageSrc|landingDarkImageSrc|somosImgSrc):\s*["']?(\/uploads\/([^"'\s]+))["']?/g,
+        pathIndex: 2,
+        filenameIndex: 3,
+      },
       // Markdown image format
-      { regex: /!\[.*?\]\(\/uploads\/([^"'\s\)]+)\)/g, pathIndex: 0, filenameIndex: 1 },
+      {
+        regex: /!\[.*?\]\(\/uploads\/([^"'\s\)]+)\)/g,
+        pathIndex: 0,
+        filenameIndex: 1,
+      },
       // HTML image format
-      { regex: /src=["']\/uploads\/([^"'\s]+)["']/g, pathIndex: 0, filenameIndex: 1 }
+      {
+        regex: /src=["']\/uploads\/([^"'\s]+)["']/g,
+        pathIndex: 0,
+        filenameIndex: 1,
+      },
     ];
 
     const imageReferences = new Set();
@@ -112,8 +139,11 @@ async function downloadAndNormalizeImages() {
       while ((match = regex.exec(mdxContent)) !== null) {
         const filename = match[pattern.filenameIndex];
         imageReferences.add({
-          fullPath: pattern.pathIndex === 0 ? `/uploads/${filename}` : match[pattern.pathIndex],
-          filename: filename
+          fullPath:
+            pattern.pathIndex === 0
+              ? `/uploads/${filename}`
+              : match[pattern.pathIndex],
+          filename: filename,
         });
       }
     }
@@ -123,7 +153,9 @@ async function downloadAndNormalizeImages() {
 
     // Get existing files
     const existingFiles = await fsPromises.readdir(uploadsDir);
-    const existingFilesLower = new Set(existingFiles.map(f => f.toLowerCase()));
+    const existingFilesLower = new Set(
+      existingFiles.map((f) => f.toLowerCase())
+    );
 
     // Process each image reference
     for (const { filename } of imageReferences) {
@@ -141,7 +173,7 @@ async function downloadAndNormalizeImages() {
         const sourceUrl = `${tinaAssetsBaseUrl}/${filename}`;
         console.log(`🔄 Downloading: ${filename}`);
         await downloadFile(sourceUrl, destinationPath);
-        
+
         // Update references in MDX file if the filename changed
         if (filename !== sanitizedFilename) {
           await updateMdxReferences(filename, sanitizedFilename);

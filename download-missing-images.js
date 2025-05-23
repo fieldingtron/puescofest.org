@@ -55,12 +55,29 @@ async function checkAndDownloadMissingImages() {
     // This regex looks for image references in various formats
     const patterns = [
       // Standard imgSrc format
-      { regex: /imgSrc:\s*["']?(\/uploads\/([^"'\s]+))["']?/g, pathIndex: 1, filenameIndex: 2 },
+      {
+        regex: /imgSrc:\s*["']?(\/uploads\/([^"'\s]+))["']?/g,
+        pathIndex: 1,
+        filenameIndex: 2,
+      },
       // Special fields like landingImageSrc
-      { regex: /(landingImageSrc|landingDarkImageSrc|somosImgSrc):\s*["']?(\/uploads\/([^"'\s]+))["']?/g, pathIndex: 2, filenameIndex: 3 },
+      {
+        regex:
+          /(landingImageSrc|landingDarkImageSrc|somosImgSrc):\s*["']?(\/uploads\/([^"'\s]+))["']?/g,
+        pathIndex: 2,
+        filenameIndex: 3,
+      },
       // Additional formats (add more as needed)
-      { regex: /!\[.*?\]\(\/uploads\/([^"'\s\)]+)\)/g, pathIndex: 0, filenameIndex: 1 }, // Markdown image format
-      { regex: /src=["']\/uploads\/([^"'\s]+)["']/g, pathIndex: 0, filenameIndex: 1 } // HTML image format
+      {
+        regex: /!\[.*?\]\(\/uploads\/([^"'\s\)]+)\)/g,
+        pathIndex: 0,
+        filenameIndex: 1,
+      }, // Markdown image format
+      {
+        regex: /src=["']\/uploads\/([^"'\s]+)["']/g,
+        pathIndex: 0,
+        filenameIndex: 1,
+      }, // HTML image format
     ];
 
     const imageReferences = new Set();
@@ -70,8 +87,11 @@ async function checkAndDownloadMissingImages() {
       while ((match = pattern.regex.exec(mdxContent)) !== null) {
         const filename = match[pattern.filenameIndex];
         imageReferences.add({
-          fullPath: pattern.pathIndex === 0 ? `/uploads/${filename}` : match[pattern.pathIndex],
-          filename: filename
+          fullPath:
+            pattern.pathIndex === 0
+              ? `/uploads/${filename}`
+              : match[pattern.pathIndex],
+          filename: filename,
         });
       }
     }
@@ -99,12 +119,12 @@ async function checkAndDownloadMissingImages() {
     // Convert all existing filenames to lowercase for case-insensitive comparison
     const existingFilesLowercase = existingFiles.map((file) =>
       file.toLowerCase()
-    );    // Find missing images
+    ); // Find missing images
     const missingImages = [];
     const existingMap = new Map(); // Map to store actual filenames
 
     // Create a map of lowercase filenames to actual filenames
-    existingFiles.forEach(file => {
+    existingFiles.forEach((file) => {
       existingMap.set(file.toLowerCase(), file);
     });
 
@@ -117,7 +137,9 @@ async function checkAndDownloadMissingImages() {
         // Check if the case matches
         const actualFilename = existingMap.get(normalizedFilename);
         if (actualFilename !== filename) {
-          console.log(`⚠️ Case mismatch: ${filename} exists as ${actualFilename}`);
+          console.log(
+            `⚠️ Case mismatch: ${filename} exists as ${actualFilename}`
+          );
         }
       }
     }
@@ -129,7 +151,8 @@ async function checkAndDownloadMissingImages() {
       const sourceUrl = `${tinaAssetsBaseUrl}/${filename}`;
       const destinationPath = path.join(uploadsDir, filename);
 
-      console.log(`Downloading ${filename} from ${sourceUrl}`);      try {
+      console.log(`Downloading ${filename} from ${sourceUrl}`);
+      try {
         console.log(`🔄 Attempting to download ${filename}...`);
         await downloadFile(sourceUrl, destinationPath);
         console.log(`✅ Successfully downloaded ${filename}`);
