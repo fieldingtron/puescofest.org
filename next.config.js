@@ -6,14 +6,26 @@ const nextConfig = {
   },
   trailingSlash: true, // This helps with static hosting
   async redirects() {
+    return [];
+  },
+  // Add rewrites for Tina
+  async rewrites() {
     return [
-      // Add your redirects here, for example:
-      // {
-      //   source: '/old-page',
-      //   destination: '/new-page',
-      //   permanent: true,
-      // },
+      {
+        source: "/admin",
+        destination: "/admin/index.html",
+      },
     ];
+  },
+  // Configure Tina assets
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Mock assets that aren't needed in production
+      ".fysics_vflow.mp4": false,
+      ".fysics_vflow_web.mp4": false,
+    };
+    return config;
   },
 };
 
