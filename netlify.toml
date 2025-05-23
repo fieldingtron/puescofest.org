@@ -1,6 +1,6 @@
 [build]
   functions = "netlify/functions"
-  publish = "out"
+  publish = ".next"
   environment = { NODE_VERSION = "22", NODE_OPTIONS = "--max-old-space-size=8192" }
   command = "npm run build"
 
