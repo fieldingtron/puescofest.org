@@ -10,7 +10,7 @@
     "postinstall": "node postinstall.js",
     "start": "npx @tinacms/cli build && next start",
     "lint": "next lint",
-    "tina:schema": "npx @tinacms/cli dev --schema"
+    "tina:schema": "npx @tinacms/cli dev --no-server"
   },
   "dependencies": {
     "axios": "^1.7.7",
