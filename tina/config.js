@@ -179,40 +179,105 @@ const schema = defineSchema({
             },
           ],
         },
-        // {
-        //   type: "object",
-        //   list: true,
-        //   name: "blockdemo",
-        //   label: "BlockDemo",
-        //   templates: [imageBlock, contentBlock, headingBlock],
-        // },
         {
           type: "object",
           list: true,
           name: "kayak",
           label: "Kayak Section",
-          templates: [imageBlock, contentBlock, headingBlock],
+          templates: [
+            {
+              name: "heading",
+              label: "Heading",
+              ui: headingBlock.ui,
+              fields: headingBlock.fields,
+            },
+            {
+              name: "content",
+              label: "Content",
+              ui: contentBlock.ui,
+              fields: contentBlock.fields,
+            },
+            {
+              name: "image",
+              label: "Image",
+              fields: imageBlock.fields,
+            },
+          ],
         },
         {
           type: "object",
           list: true,
           name: "feria",
           label: "Feria Section",
-          templates: [imageBlock, contentBlock, headingBlock],
+          templates: [
+            {
+              name: "heading",
+              label: "Heading",
+              ui: headingBlock.ui,
+              fields: headingBlock.fields,
+            },
+            {
+              name: "content",
+              label: "Content",
+              ui: contentBlock.ui,
+              fields: contentBlock.fields,
+            },
+            {
+              name: "image",
+              label: "Image",
+              fields: imageBlock.fields,
+            },
+          ],
         },
         {
           type: "object",
           list: true,
           name: "llegar",
           label: "Como Llegar Section",
-          templates: [imageBlock, contentBlock, headingBlock],
+          templates: [
+            {
+              name: "heading",
+              label: "Heading",
+              ui: headingBlock.ui,
+              fields: headingBlock.fields,
+            },
+            {
+              name: "content",
+              label: "Content",
+              ui: contentBlock.ui,
+              fields: contentBlock.fields,
+            },
+            {
+              name: "image",
+              label: "Image",
+              fields: imageBlock.fields,
+            },
+          ],
         },
         {
           type: "object",
           list: true,
           name: "tickets",
           label: "Tickets Info",
-          templates: [imageBlock, contentBlock, headingBlock],
+          templates: [
+            {
+              name: "heading",
+              label: "Heading",
+              ui: headingBlock.ui,
+              fields: headingBlock.fields,
+            },
+            {
+              name: "content",
+              label: "Content",
+              ui: contentBlock.ui,
+              fields: contentBlock.fields,
+            },
+            {
+              name: "image",
+              label: "Image",
+              fields: imageBlock.fields,
+            },
+          ],
         },
         {
           label: "Fotos",
@@ -256,7 +321,25 @@ const schema = defineSchema({
           list: true,
           name: "camping",
           label: "Camping Section",
-          templates: [imageBlock, contentBlock, headingBlock],
+          templates: [
+            {
+              name: "heading",
+              label: "Heading",
+              ui: headingBlock.ui,
+              fields: headingBlock.fields,
+            },
+            {
+              name: "content",
+              label: "Content",
+              ui: contentBlock.ui,
+              fields: contentBlock.fields,
+            },
+            {
+              name: "image",
+              label: "Image",
+              fields: imageBlock.fields,
+            },
+          ],
         },
         {
           label: "Preguntas Frequentes",
@@ -289,13 +372,6 @@ const schema = defineSchema({
             },
           ],
         },
-
-        // {
-        //   name: "body",
-        //   label: "Main Content",
-        //   type: "rich-text",
-        //   isBody: true,
-        // },
       ],
       ui: {
         router: ({ document }) => {
