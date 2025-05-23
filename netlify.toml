@@ -2,6 +2,7 @@
   functions = "netlify/functions"
   publish = "out"
   environment = { NODE_VERSION = "22", NODE_OPTIONS = "--max-old-space-size=8192" }
+  command = "npm run build"
 
 [functions]
   node_bundler = "esbuild"
@@ -14,5 +15,13 @@
 
 [[redirects]]
   from = "/admin"
+  to = "/admin/"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
   to = "/admin/index.html"
   status = 200
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
