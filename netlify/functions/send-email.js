@@ -4,7 +4,7 @@ const { Resend } = require("resend");
 const EMAIL_CONFIG = {
   subject: process.env.EMAIL_SUBJECT || "PuescoFest Website Contact Form",
   fromEmail: process.env.FROM_EMAIL || "no-reply@onresend.com",
-  toEmail: process.env.TO_EMAIL || "info@puescofest.org",
+  toEmail: process.env.TO_EMAIL || "festivalpuesco@gmail.com",
 };
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -129,6 +129,7 @@ exports.handler = async (event, context) => {
       subject: `${EMAIL_CONFIG.subject} - ${name}`,
       html,
       text,
+      reply_to: email, // Add reply-to header
     });
 
     console.log("[Email Function] Email sent successfully:", emailResponse);
