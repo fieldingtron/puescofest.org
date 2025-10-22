@@ -39,7 +39,7 @@ export const HomepageLayout = (props) => {
       <NavBar />
       <div className="odd:bg-white">
         <Landing data={props} />
-        <Video data={props} />
+        {/* <Video data={props} /> */}
       </div>
 
       <Somos data={props} />
