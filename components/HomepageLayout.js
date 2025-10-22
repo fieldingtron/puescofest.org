@@ -60,14 +60,10 @@ export const HomepageLayout = (props) => {
       <Contact />
       <footer>
         <div className="container mx-auto  ">
-          <img
-            src="/images/sponsorsFINAL.png"
-            alt="Sponsors"
-            className="py-2 mx-auto"
-          />
+          
 
           <p className="text-center my-2 mb-4">
-            ©2024 PuescoFest | Diseño por{" "}
+            ©2025 PuescoFest | Diseño por{" "}
             <a
               href="https://www.instagram.com/fields.marshall/"
               target="_blank"
@@ -91,3 +87,4 @@ export const HomepageLayout = (props) => {
     </>
   );
 };
+
