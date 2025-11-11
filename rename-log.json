@@ -144,6 +144,26 @@
       "oldPath": "public/uploads/P1093536.jpg",
       "newPath": "public/uploads/p1093536.jpg",
       "timestamp": "2025-11-11T23:08:34.104Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_0372.JPEG",
+      "newPath": "public/uploads/img_0372.JPEG",
+      "timestamp": "2025-11-11T23:20:30.297Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_2870.jpeg",
+      "newPath": "public/uploads/img_2870.jpeg",
+      "timestamp": "2025-11-11T23:20:32.102Z"
+    },
+    {
+      "oldPath": "public/uploads/Untitled design.jpeg",
+      "newPath": "public/uploads/untitled-design.jpeg",
+      "timestamp": "2025-11-11T23:20:33.175Z"
+    },
+    {
+      "oldPath": "public/uploads/WhatsApp Image 2025-11-11 at 6.19.14 PM.jpeg",
+      "newPath": "public/uploads/whatsapp-image-2025-11-11-at-6.19.14-pm.jpeg",
+      "timestamp": "2025-11-11T23:20:34.017Z"
     }
   ]
 }
