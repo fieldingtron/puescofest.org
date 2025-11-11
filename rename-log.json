@@ -59,6 +59,31 @@
       "oldPath": "public/uploads/P1093536.jpg",
       "newPath": "public/uploads/p1093536.jpg",
       "timestamp": "2025-11-11T22:18:20.973Z"
+    },
+    {
+      "oldPath": "public/uploads/Chapperz.png",
+      "newPath": "public/uploads/chapperz.png",
+      "timestamp": "2025-11-11T22:24:25.416Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_0372.JPEG",
+      "newPath": "public/uploads/img_0372.JPEG",
+      "timestamp": "2025-11-11T22:24:26.985Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_5701.JPG",
+      "newPath": "public/uploads/img_5701.JPG",
+      "timestamp": "2025-11-11T22:24:28.861Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_6462.jpg",
+      "newPath": "public/uploads/img_6462.jpg",
+      "timestamp": "2025-11-11T22:24:29.777Z"
+    },
+    {
+      "oldPath": "public/uploads/Untitled design.jpeg",
+      "newPath": "public/uploads/untitled-design.jpeg",
+      "timestamp": "2025-11-11T22:24:30.863Z"
     }
   ]
 }
