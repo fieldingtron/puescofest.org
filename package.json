@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx @tinacms/cli dev -c \"next dev\"",
-    "build": "npx @tinacms/cli build && next build",
+    "build": "next build",
     "copy-function-deps": "mkdir -p netlify/functions/node_modules && cp -r node_modules/resend netlify/functions/node_modules/",
     "postbuild": "copyfiles -u 4 node_modules/tw-elements/dist/js/tw-elements.umd.min.* public/js",
     "postinstall": "node postinstall.js",
