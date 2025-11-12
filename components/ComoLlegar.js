@@ -38,10 +38,10 @@ export default function ComoLLegar({ data }) {
             })
           : null}
 
-        <p className="text-center text-xl">
-          Servicio de Transporte de Curarrehue a PuescoFest disponibles los días
+        <p className="text-center text-xl hidden">
+          {/* Servicio de Transporte de Curarrehue a PuescoFest disponibles los días
           Viernes Sábado y Domingo. Valor dos mil pesos por persona, cada viaje
-          (ida o vuelta)
+          (ida o vuelta) */}
         </p>
       </div>
     </section>
