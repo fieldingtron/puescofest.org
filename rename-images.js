@@ -26,9 +26,9 @@ try {
  */
 const sanitizeFileName = (filename) => {
   const lastDotIndex = filename.lastIndexOf(".");
-  if (lastDotIndex === -1) return filename; // No extension
+  if (lastDotIndex === -1) return filename.toLowerCase(); // No extension, just lowercase whole name
   const baseName = filename.slice(0, lastDotIndex);
-  const extension = filename.slice(lastDotIndex); // Includes the dot
+  const extension = filename.slice(lastDotIndex).toLowerCase(); // Includes the dot, force lowercase
   const sanitized = baseName
     .toLowerCase()
     .normalize("NFD")
@@ -96,7 +96,7 @@ async function renameImages() {
     const files = await readdir(uploadDir);
     console.log(`Found ${files.length} files to process`);
     for (const file of files) {
-      if (file.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+      if (file.match(/\.(jpg|jpeg|png|gif|webp|pdf)$/i)) {
         const oldPath = path.join(uploadDir, file);
         const sanitizedName = sanitizeFileName(file);
         const newPath = path.join(uploadDir, sanitizedName);

@@ -220,9 +220,14 @@ async function processImage(filePath) {
     // Step 3: Resize and compress the image
     try {
       let img = sharp(fileToProcess);
-      const metadata = await img.metadata();
-
-      // Resize if necessary
+      const allowedExtensions = [
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp",
+        ".gif",
+        ".pdf",
+      ];
       const resizeOptions = {};
       if (
         metadata.width > metadata.height &&
@@ -232,7 +237,6 @@ async function processImage(filePath) {
       } else if (metadata.height > maxWidthOrHeight) {
         resizeOptions.height = maxWidthOrHeight;
       }
-
       img = img.resize(resizeOptions);
 
       let buffer;
@@ -307,95 +311,84 @@ async function processImage(filePath) {
           fileToProcess
         )}`
       );
+      // For PDFs, only sanitize/rename, skip image processing and optimization
+      if (ext === ".pdf") {
+        console.log(`PDF sanitized/renamed: ${fileToProcess}`);
+        return;
+      }
 
+      // Step 2: Check if the file is already optimized
+      const normalizedPath = normalizePath(fileToProcess);
+      const hash = getFileHash(fileToProcess);
+      if (optimizedDB[normalizedPath] === hash) {
+        console.log(`Already optimized, skipping: ${fileToProcess}`);
+        return;
+      }
       try {
-        // Write the buffer to a temporary file
-        await fsPromises.writeFile(tempFilePath, buffer);
-        await new Promise((resolve) => setTimeout(resolve, 300)); // Wait longer for file system
-
-        // Ensure the target file is not locked by opening handles
-        try {
-          await fsPromises.access(fileToProcess, fs.constants.W_OK);
-        } catch (accessErr) {
-          console.warn(
-            `Warning: Cannot write to ${fileToProcess}, may be locked: ${accessErr.message}`
-          );
-
-          // Try to force close any open handles (Windows specific)
-          if (process.platform === "win32") {
-            try {
-              // Only attempt on Windows
-              await new Promise((resolve) => setTimeout(resolve, 1000)); // Extra wait time
-            } catch (e) {}
-          }
-        }
-
-        try {
-          // First try to remove the original
-          await fsPromises.unlink(fileToProcess);
-          await new Promise((resolve) => setTimeout(resolve, 300));
-        } catch (unlinkErr) {
-          console.warn(
-            `Warning: Could not delete ${fileToProcess} before replacing: ${unlinkErr.message}`
-          );
-          // Try to replace anyway
-        }
-
-        // Now move the temp file to the target location
-        await fsPromises.rename(tempFilePath, fileToProcess);
-
-        console.log(`Optimized ${fileToProcess}:`);
-        console.log(
-          `Original size: ${originalSize} bytes, Resized size: ${resizedSize} bytes`
+        await fsPromises.access(fileToProcess, fs.constants.W_OK);
+      } catch (accessErr) {
+        console.warn(
+          `Warning: Cannot write to ${fileToProcess}, may be locked: ${accessErr.message}`
         );
 
-        // Update the optimization database with the hash of the optimized file
-        optimizedDB[normalizedPath] = getFileHash(fileToProcess);
-        await fsPromises.writeFile(
-          dbPath,
-          JSON.stringify(optimizedDB, null, 2)
-        );
-      } catch (saveErr) {
-        console.error(
-          `Error saving optimized file ${fileToProcess}: ${saveErr.message}`
-        );
-
-        // Try to clean up temp file if it exists
-        try {
-          await fsPromises.unlink(tempFilePath).catch(() => {});
-        } catch (cleanupErr) {
-          // Ignore cleanup errors
+        // Try to force close any open handles (Windows specific)
+        if (process.platform === "win32") {
+          try {
+            // Only attempt on Windows
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // Extra wait time
+          } catch (e) {}
         }
       }
-    } catch (processingErr) {
-      console.error(
-        `Error processing image data for ${fileToProcess}: ${processingErr.message}`
+
+      try {
+        // First try to remove the original
+        await fsPromises.unlink(fileToProcess);
+        await new Promise((resolve) => setTimeout(resolve, 300));
+      } catch (unlinkErr) {
+        console.warn(
+          `Warning: Could not delete ${fileToProcess} before replacing: ${unlinkErr.message}`
+        );
+        // Try to replace anyway
+      }
+
+      // Now move the temp file to the target location
+      await fsPromises.rename(tempFilePath, fileToProcess);
+
+      console.log(`Optimized ${fileToProcess}:`);
+      console.log(
+        `Original size: ${originalSize} bytes, Resized size: ${resizedSize} bytes`
       );
 
-      // Mark this file as processed to avoid retrying endlessly
-      optimizedDB[normalizedPath] = "error-processing";
+      // Update the optimization database with the hash of the optimized file
+      optimizedDB[normalizedPath] = getFileHash(fileToProcess);
+      await fsPromises.writeFile(dbPath, JSON.stringify(optimizedDB, null, 2));
+    } catch (saveErr) {
+      console.error(
+        `Error saving optimized file ${fileToProcess}: ${saveErr.message}`
+      );
+
+      // Try to clean up temp file if it exists
       try {
-        await fsPromises.writeFile(
-          dbPath,
-          JSON.stringify(optimizedDB, null, 2)
-        );
-      } catch (dbErr) {
-        // Ignore DB write errors at this point
+        await fsPromises.unlink(tempFilePath).catch(() => {});
+      } catch (cleanupErr) {
+        // Ignore cleanup errors
       }
     }
-  } catch (error) {
-    console.error(`Error processing image ${filePath}:`, error.message);
+  } catch (processingErr) {
+    console.error(
+      `Error processing image data for ${fileToProcess}: ${processingErr.message}`
+    );
 
-    // Mark as processed with error to avoid retrying
+    // Mark this file as processed to avoid retrying endlessly
+    optimizedDB[normalizedPath] = "error-processing";
     try {
-      const normalizedPath = normalizePath(filePath);
-      optimizedDB[normalizedPath] = "error-processing";
       await fsPromises.writeFile(dbPath, JSON.stringify(optimizedDB, null, 2));
     } catch (dbErr) {
-      // Ignore DB errors at this point
+      // Ignore DB write errors at this point
     }
   }
 }
+// ...existing code...
 
 /**
  * Process all images in a directory
