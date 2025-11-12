@@ -179,6 +179,26 @@
       "oldPath": "public/uploads/IMG_2753.png",
       "newPath": "public/uploads/img_2753.png",
       "timestamp": "2025-11-12T01:30:59.694Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_1851.jpeg",
+      "newPath": "public/uploads/img_1851.jpeg",
+      "timestamp": "2025-11-12T01:37:37.025Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_2737.jpeg",
+      "newPath": "public/uploads/img_2737.jpeg",
+      "timestamp": "2025-11-12T01:37:38.680Z"
+    },
+    {
+      "oldPath": "public/uploads/IMG_2753.jpeg",
+      "newPath": "public/uploads/img_2753.jpeg",
+      "timestamp": "2025-11-12T01:37:39.616Z"
+    },
+    {
+      "oldPath": "public/uploads/PUESKO_FEST_1fullcolor.jpg",
+      "newPath": "public/uploads/puesko_fest_1fullcolor.jpg",
+      "timestamp": "2025-11-12T01:37:40.513Z"
     }
   ]
 }
