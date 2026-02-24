@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import Heading from "./Heading";
 
 export default function Contact() {
   const [response, setResponse] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const startTimeRef = useRef(null);
+
+  useEffect(() => {
+    startTimeRef.current = Date.now();
+  }, []);
 
   // Destructure functions and states from useForm
   const {
@@ -15,6 +21,37 @@ export default function Contact() {
 
   // Submit handler
   async function submitForm(data) {
+    setSubmitError(null);
+
+    // 1. Time-based bot check (submitted too quickly)
+    if (startTimeRef.current) {
+      const timeElapsed = Date.now() - startTimeRef.current;
+      if (timeElapsed < 3000) {
+        setSubmitError("Form submitted too quickly. Please try again.");
+        return;
+      }
+    }
+
+    // 2. Honeypot check (client-side)
+    if (data.website && data.website.trim() !== "") {
+      console.warn("[Contact Form] Spam detected by honeypot field.");
+      setResponse(true);
+      return;
+    }
+
+    // 3. Math challenge check
+    if (parseInt(data.mathChallenge, 10) !== 7) {
+      setSubmitError("Incorrect answer to the security question.");
+      return;
+    }
+
+    // 4. URL pattern check in name
+    const urlRegex = /(http:\/\/|https:\/\/|www\.)/i;
+    if (urlRegex.test(data["your-name"])) {
+      setSubmitError("Invalid characters detected in name field.");
+      return;
+    }
+
     console.log("[Contact Form] Starting form submission with data:", {
       name: data["your-name"],
       email: data["your-email"],
@@ -27,7 +64,8 @@ export default function Contact() {
         "your-name": data["your-name"],
         "your-email": data["your-email"],
         "your-message": data["your-message"],
-        honeypot: "", // Add empty honeypot field
+        website: data.website || "",
+        mathChallenge: data.mathChallenge,
       });
 
       console.log("[Contact Form] Response received:", {
@@ -44,6 +82,7 @@ export default function Contact() {
         data: error.response?.data,
         stack: error.stack,
       });
+      setSubmitError("Error sending message. Please try again.");
     }
   }
 
@@ -62,6 +101,16 @@ export default function Contact() {
               </h2>
             ) : (
               <form onSubmit={handleSubmit(submitForm)}>
+                {/* Honeypot field - hidden from real users, filled by bots */}
+                <div style={{ display: "none" }} aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    autoComplete="off"
+                    {...register("website")}
+                  />
+                </div>
                 <label className="block mb-6">
                   <span>Tu Nombre</span>
                   <input
@@ -94,6 +143,20 @@ export default function Contact() {
                     })}
                   ></textarea>
                 </label>
+                <label className="block mb-6">
+                  <span>¿Cuánto es 3 + 4? (verificación de seguridad)</span>
+                  <input
+                    type="number"
+                    placeholder="7"
+                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2 px-3 dark:text-white dark:bg-darkGrayishBlue"
+                    {...register("mathChallenge", { required: true })}
+                  />
+                </label>
+                {submitError && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
+                    {submitError}
+                  </div>
+                )}
                 <div className="mb-2">
                   <button
                     disabled={isSubmitting}

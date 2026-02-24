@@ -9,8 +9,28 @@ const EMAIL_CONFIG = {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+/**
+ * Escapes characters that are unsafe for HTML.
+ * Used to sanitize user input before embedding it into the email HTML.
+ */
+function escapeHtml(str) {
+  return String(str || "").replace(/[&<>"']/g, function (s) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    }[s];
+  });
+}
+
 // Helper function to create email content
 const createEmailContent = (name, email, message) => {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message);
+
   const text = `
 Name: ${name}
 Email: ${email}
@@ -32,15 +52,15 @@ ${message}
 <body>
   <div class="field">
     <div class="label">Name:</div>
-    <div>${name}</div>
+    <div>${safeName}</div>
   </div>
   <div class="field">
     <div class="label">Email:</div>
-    <div>${email}</div>
+    <div>${safeEmail}</div>
   </div>
   <div class="field">
     <div class="label">Message:</div>
-    <div class="message">${message.replace(/\n/g, "<br/>")}</div>
+    <div class="message">${safeMessage.replace(/\n/g, "<br/>")}</div>
   </div>
 </body>
 </html>
@@ -74,25 +94,45 @@ exports.handler = async (event, context) => {
       "your-name": name,
       "your-email": email,
       "your-message": message,
-      honeypot,
+      website,
+      mathChallenge,
     } = JSON.parse(event.body);
 
     console.log("[Email Function] Parsed form data:", {
       name,
       email,
       messageLength: message?.length,
-      hasHoneypot: !!honeypot,
     });
 
-    // Check honeypot field
-    if (honeypot) {
-      console.log("[Email Function] Spam detected via honeypot");
+    // 1. Honeypot check - return 200 to fool bots
+    if (website && website.trim() !== "") {
+      console.warn("[Email Function] Spam detected via honeypot.");
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "Message sent successfully" }),
+        headers: { "Content-Type": "application/json" },
+      };
+    }
+
+    // 2. Math challenge check
+    const mathAnswer = parseInt(mathChallenge, 10);
+    if (isNaN(mathAnswer) || mathAnswer !== 7) {
+      console.warn("[Email Function] Spam detected by math challenge. Answer given:", mathChallenge);
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: "Spam detected" }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: JSON.stringify({ message: "Bot detection: Incorrect security question answer." }),
+        headers: { "Content-Type": "application/json" },
+      };
+    }
+
+    // 3. URL pattern check in name
+    const urlRegex = /(http:\/\/|https:\/\/|www\.)/i;
+    if (urlRegex.test(name)) {
+      console.warn("[Email Function] Spam detected: URL in name field.");
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Bot detection: Invalid characters in name." }),
+        headers: { "Content-Type": "application/json" },
       };
     }
 
