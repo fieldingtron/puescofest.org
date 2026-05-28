@@ -2,24 +2,19 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const readline = require("node:readline");
 
-// Check if running in production based on // Check if running in production based on CONTEXT or VERCEL_ENV
-if (
+const isProduction =
   process.env.VERCEL_ENV?.toLowerCase() === "production" ||
-  process.env.CONTEXT?.toLowerCase() === "production"
-) {
+  process.env.CONTEXT?.toLowerCase() === "production";
+const isInteractiveTerminal = Boolean(process.stdin.isTTY);
+const shouldPromptForEncryption =
+  process.env.ENV_ENCRYPTION_PROMPT?.toLowerCase() === "true";
+
+if (isProduction || !isInteractiveTerminal || !shouldPromptForEncryption) {
   console.log(
-    "Production environment detected. Skipping encryption/decryption."
+    "Skipping .env encryption/decryption in postinstall. Set ENV_ENCRYPTION_PROMPT=true to run it interactively."
   );
-  process.exit(0); // Exit the script without running any further
+  process.exit(0);
 }
-
-// Continue with the rest of your script if not in production
-console.log(
-  "Not in production environment. Proceeding with encryption/decryption."
-);
-
-console.log("process.env");
-console.log(process.env);
 
 // Helper function to prompt for a password
 function promptPassword(question) {
@@ -70,6 +65,7 @@ async function decryptFile(password) {
 
 // Main logic to check file existence and perform encryption/decryption
 (async () => {
+  console.log("ENV_ENCRYPTION_PROMPT=true detected. Running interactive .env protection.");
   const envExists = fs.existsSync(".env");
   const envEncExists = fs.existsSync(".env.enc");
 

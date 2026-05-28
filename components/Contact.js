@@ -7,18 +7,83 @@ export default function Contact() {
   const [response, setResponse] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [renderTimestamp, setRenderTimestamp] = useState(null);
+  const [turnstileReady, setTurnstileReady] = useState(false);
+  const turnstileContainerRef = useRef(null);
+  const turnstileWidgetIdRef = useRef(null);
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  // Destructure functions and states from useForm
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm();
 
   // Record when the form was rendered (used for timing-based spam detection)
   useEffect(() => {
     setRenderTimestamp(Date.now());
   }, []);
 
-  // Destructure functions and states from useForm
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+  useEffect(() => {
+    if (!turnstileSiteKey) return;
+
+    const renderWidget = () => {
+      if (
+        typeof window === "undefined" ||
+        !window.turnstile ||
+        !turnstileContainerRef.current ||
+        turnstileWidgetIdRef.current !== null
+      ) {
+        return;
+      }
+
+      turnstileWidgetIdRef.current = window.turnstile.render(
+        turnstileContainerRef.current,
+        {
+          sitekey: turnstileSiteKey,
+          callback: (token) => {
+            setValue("turnstileToken", token, { shouldValidate: true });
+          },
+          "expired-callback": () => {
+            setValue("turnstileToken", "", { shouldValidate: true });
+          },
+          "error-callback": () => {
+            setValue("turnstileToken", "", { shouldValidate: true });
+          },
+        }
+      );
+
+      setTurnstileReady(true);
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+      return;
+    }
+
+    const existingScript = document.querySelector(
+      'script[src="https://challenges.cloudflare.com/turnstile/v0/api.js"]'
+    );
+
+    if (existingScript) {
+      existingScript.addEventListener("load", renderWidget, { once: true });
+      return () => {
+        existingScript.removeEventListener("load", renderWidget);
+      };
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.async = true;
+    script.defer = true;
+    script.addEventListener("load", renderWidget, { once: true });
+    document.head.appendChild(script);
+
+    return () => {
+      script.removeEventListener("load", renderWidget);
+    };
+  }, [setValue, turnstileSiteKey]);
 
   // Submit handler
   async function submitForm(data) {
@@ -44,6 +109,11 @@ export default function Contact() {
       return;
     }
 
+    if (turnstileSiteKey && !data.turnstileToken) {
+      setSubmitError("Please complete the anti-spam verification.");
+      return;
+    }
+
     console.log("[Contact Form] Starting form submission with data:", {
       name: data["your-name"],
       email: data["your-email"],
@@ -58,6 +128,7 @@ export default function Contact() {
         "your-message": data["your-message"],
         honeypot: data.website || "",
         mathChallenge: data.mathChallenge,
+        turnstileToken: data.turnstileToken || "",
         renderTimestamp, // form render time for server-side timing check
       });
 
@@ -68,6 +139,7 @@ export default function Contact() {
       });
       setResponse(true); // Show "ENVIADO" message
     } catch (error) {
+      const backendMessage = error.response?.data?.message;
       console.error("[Contact Form] Error details:", {
         message: error.message,
         status: error.response?.status,
@@ -75,7 +147,17 @@ export default function Contact() {
         data: error.response?.data,
         stack: error.stack,
       });
-      setSubmitError("Error sending message. Please try again.");
+      if (backendMessage === "Anti-spam verification failed") {
+        setSubmitError(
+          "Anti-spam verification failed. Please retry the verification and submit again."
+        );
+      } else {
+        setSubmitError("Error sending message. Please try again.");
+      }
+      if (window.turnstile && turnstileWidgetIdRef.current !== null) {
+        window.turnstile.reset(turnstileWidgetIdRef.current);
+      }
+      setValue("turnstileToken", "", { shouldValidate: true });
     }
   }
 
@@ -94,6 +176,7 @@ export default function Contact() {
               </h2>
             ) : (
               <form onSubmit={handleSubmit(submitForm)}>
+                <input type="hidden" {...register("turnstileToken")} />
                 {/* Honeypot field — hidden from real users, bots will fill it */}
                 <div
                   aria-hidden="true"
@@ -159,6 +242,19 @@ export default function Contact() {
                     {...register("mathChallenge", { required: true })}
                   />
                 </label>
+                {turnstileSiteKey && (
+                  <div className="block mb-6">
+                    <span className="block mb-2 text-sm">
+                      Verificacion anti-spam
+                    </span>
+                    <div ref={turnstileContainerRef} />
+                    {!turnstileReady && (
+                      <p className="mt-2 text-sm text-gray-500">
+                        Cargando verificacion...
+                      </p>
+                    )}
+                  </div>
+                )}
                 {submitError && (
                   <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-md text-sm">
                     {submitError}

@@ -8,7 +8,59 @@ const EMAIL_CONFIG = {
   toEmail: process.env.TO_EMAIL || "festivalpuesco@gmail.com",
 };
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResendClient() {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("Missing RESEND_API_KEY");
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+}
+
+async function verifyTurnstileToken({ token, ip }) {
+  const secretKey = process.env.TURNSTILE_SECRET_KEY;
+
+  if (!secretKey) {
+    return { success: false, skipped: false, errors: ["missing-secret-key"] };
+  }
+
+  if (!token) {
+    return { success: false, skipped: false, errors: ["missing-input-response"] };
+  }
+
+  const payload = new URLSearchParams({
+    secret: secretKey,
+    response: token,
+  });
+
+  if (ip && ip !== "unknown") {
+    payload.append("remoteip", ip);
+  }
+
+  const verifyResponse = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: payload,
+    }
+  );
+
+  if (!verifyResponse.ok) {
+    return {
+      success: false,
+      skipped: false,
+      errors: [`http_${verifyResponse.status}`],
+    };
+  }
+
+  const result = await verifyResponse.json();
+  return {
+    success: Boolean(result.success),
+    skipped: false,
+    errors: result["error-codes"] || [],
+  };
+}
 
 /**
  * Escapes characters that are unsafe for HTML.
@@ -97,6 +149,7 @@ exports.handler = async (event, context) => {
       "your-message": message,
       honeypot,
       mathChallenge,
+      turnstileToken,
       renderTimestamp,
     } = JSON.parse(event.body);
 
@@ -105,6 +158,7 @@ exports.handler = async (event, context) => {
       email,
       messageLength: message?.length,
       hasHoneypot: !!honeypot,
+      hasTurnstileToken: !!turnstileToken,
       renderTimestamp,
     });
 
@@ -146,6 +200,26 @@ exports.handler = async (event, context) => {
       event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
       event.headers["client-ip"] ||
       "unknown";
+
+    const turnstileResult = await verifyTurnstileToken({
+      token: turnstileToken,
+      ip: clientIp,
+    });
+
+    if (!turnstileResult.success) {
+      console.warn("[Email Function] Turnstile validation failed:", {
+        errors: turnstileResult.errors,
+      });
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          message: "Anti-spam verification failed",
+          code: "TURNSTILE_VERIFICATION_FAILED",
+          errors: turnstileResult.errors,
+        }),
+        headers: { "Content-Type": "application/json" },
+      };
+    }
 
     const spamResult = checkSpam({
       name,
@@ -193,6 +267,7 @@ exports.handler = async (event, context) => {
       subject: EMAIL_CONFIG.subject,
     });
 
+    const resend = getResendClient();
     const { text, html } = createEmailContent(name, email, message);
     const emailResponse = await resend.emails.send({
       from: EMAIL_CONFIG.fromEmail,

@@ -1,6 +1,5 @@
 import React from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
-import { client } from "../tina/__generated__/client";
 import Heading from "./Heading";
 
 export default function Fotos(props) {

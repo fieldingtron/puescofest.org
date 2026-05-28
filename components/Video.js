@@ -1,6 +1,5 @@
 import React from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
-import { client } from "../tina/__generated__/client";
 
 export default function Video(props) {
   return (
