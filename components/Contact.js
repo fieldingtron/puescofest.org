@@ -6,10 +6,11 @@ import Heading from "./Heading";
 export default function Contact() {
   const [response, setResponse] = useState(false);
   const [submitError, setSubmitError] = useState(null);
-  const startTimeRef = useRef(null);
+  const [renderTimestamp, setRenderTimestamp] = useState(null);
 
+  // Record when the form was rendered (used for timing-based spam detection)
   useEffect(() => {
-    startTimeRef.current = Date.now();
+    setRenderTimestamp(Date.now());
   }, []);
 
   // Destructure functions and states from useForm
@@ -23,29 +24,20 @@ export default function Contact() {
   async function submitForm(data) {
     setSubmitError(null);
 
-    // 1. Time-based bot check (submitted too quickly)
-    if (startTimeRef.current) {
-      const timeElapsed = Date.now() - startTimeRef.current;
-      if (timeElapsed < 3000) {
-        setSubmitError("Form submitted too quickly. Please try again.");
-        return;
-      }
-    }
-
-    // 2. Honeypot check (client-side)
+    // Client-side honeypot check — silently "succeed" to fool bots
     if (data.website && data.website.trim() !== "") {
       console.warn("[Contact Form] Spam detected by honeypot field.");
       setResponse(true);
       return;
     }
 
-    // 3. Math challenge check
+    // Client-side math challenge check
     if (parseInt(data.mathChallenge, 10) !== 7) {
       setSubmitError("Incorrect answer to the security question.");
       return;
     }
 
-    // 4. URL pattern check in name
+    // Client-side URL pattern check in name
     const urlRegex = /(http:\/\/|https:\/\/|www\.)/i;
     if (urlRegex.test(data["your-name"])) {
       setSubmitError("Invalid characters detected in name field.");
@@ -64,8 +56,9 @@ export default function Contact() {
         "your-name": data["your-name"],
         "your-email": data["your-email"],
         "your-message": data["your-message"],
-        website: data.website || "",
+        honeypot: data.website || "",
         mathChallenge: data.mathChallenge,
+        renderTimestamp, // form render time for server-side timing check
       });
 
       console.log("[Contact Form] Response received:", {
@@ -101,16 +94,30 @@ export default function Contact() {
               </h2>
             ) : (
               <form onSubmit={handleSubmit(submitForm)}>
-                {/* Honeypot field - hidden from real users, filled by bots */}
-                <div style={{ display: "none" }} aria-hidden="true">
-                  <label htmlFor="website">Website</label>
-                  <input
-                    type="text"
-                    id="website"
-                    autoComplete="off"
-                    {...register("website")}
-                  />
+                {/* Honeypot field — hidden from real users, bots will fill it */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    top: "-9999px",
+                    opacity: 0,
+                    height: 0,
+                    overflow: "hidden",
+                    tabIndex: -1,
+                  }}
+                >
+                  <label>
+                    Website
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      tabIndex={-1}
+                      {...register("website")}
+                    />
+                  </label>
                 </div>
+
                 <label className="block mb-6">
                   <span>Tu Nombre</span>
                   <input

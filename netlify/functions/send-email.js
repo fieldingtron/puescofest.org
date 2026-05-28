@@ -1,4 +1,5 @@
 const { Resend } = require("resend");
+const { checkSpam } = require("./spam-utils");
 
 // Email configuration
 const EMAIL_CONFIG = {
@@ -94,18 +95,21 @@ exports.handler = async (event, context) => {
       "your-name": name,
       "your-email": email,
       "your-message": message,
-      website,
+      honeypot,
       mathChallenge,
+      renderTimestamp,
     } = JSON.parse(event.body);
 
     console.log("[Email Function] Parsed form data:", {
       name,
       email,
       messageLength: message?.length,
+      hasHoneypot: !!honeypot,
+      renderTimestamp,
     });
 
     // 1. Honeypot check - return 200 to fool bots
-    if (website && website.trim() !== "") {
+    if (honeypot && honeypot.trim() !== "") {
       console.warn("[Email Function] Spam detected via honeypot.");
       return {
         statusCode: 200,
@@ -135,6 +139,33 @@ exports.handler = async (event, context) => {
         headers: { "Content-Type": "application/json" },
       };
     }
+
+    // 4. Multi-layered spam heuristics (gibberish, timing, email patterns, rate limit)
+    const clientIp =
+      event.headers["x-nf-client-connection-ip"] ||
+      event.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      event.headers["client-ip"] ||
+      "unknown";
+
+    const spamResult = checkSpam({
+      name,
+      email,
+      message,
+      honeypot,
+      renderTimestamp,
+      ip: clientIp,
+    });
+
+    if (spamResult.isSpam) {
+      console.log("[Email Function] Spam detected by heuristics:", spamResult);
+      return {
+        statusCode: 403,
+        body: JSON.stringify({ message: "Unable to process your request" }),
+        headers: { "Content-Type": "application/json" },
+      };
+    }
+
+    console.log("[Email Function] Spam check passed:", spamResult);
 
     // Validate required fields
     if (!name || !email || !message) {
