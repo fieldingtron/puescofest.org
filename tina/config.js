@@ -35,6 +35,8 @@ const contentBlock = {
   ],
 };
 
+import { TinaImageUploadTinaField } from "../components/TinaImageUploadTinaField";
+
 const imageBlock = {
   name: "image",
   label: "Image",
@@ -43,6 +45,9 @@ const imageBlock = {
       type: "image",
       label: "Image",
       name: "imgSrc",
+      ui: {
+        component: TinaImageUploadTinaField,
+      },
     },
   ],
 };
@@ -139,6 +144,9 @@ const schema = defineSchema({
               type: "image",
               label: "Hero image",
               name: "imgSrc",
+              ui: {
+                component: TinaImageUploadTinaField,
+              },
             },
           ],
         },
@@ -176,6 +184,9 @@ const schema = defineSchema({
               type: "image",
               label: "Imagen",
               name: "imgSrc",
+              ui: {
+                component: TinaImageUploadTinaField,
+              },
             },
           ],
         },
@@ -304,6 +315,9 @@ const schema = defineSchema({
               type: "image",
               label: "Imagen",
               name: "imgSrc",
+              ui: {
+                component: TinaImageUploadTinaField,
+              },
             },
           ],
         },
