@@ -8,10 +8,16 @@ const isProduction =
 const isInteractiveTerminal = Boolean(process.stdin.isTTY);
 const shouldPromptForEncryption =
   process.env.ENV_ENCRYPTION_PROMPT?.toLowerCase() === "true";
+const envPassword = process.env.PASSWORD || process.env.password || "";
+const hasEnvPassword = envPassword.length > 0;
 
-if (isProduction || !isInteractiveTerminal || !shouldPromptForEncryption) {
+if (
+  isProduction ||
+  (!isInteractiveTerminal && !hasEnvPassword) ||
+  (!shouldPromptForEncryption && !hasEnvPassword)
+) {
   console.log(
-    "Skipping .env encryption/decryption in postinstall. Set ENV_ENCRYPTION_PROMPT=true to run it interactively."
+    "Skipping .env encryption/decryption in postinstall. Set ENV_ENCRYPTION_PROMPT=true or provide PASSWORD to run it."
   );
   process.exit(0);
 }
@@ -65,21 +71,27 @@ async function decryptFile(password) {
 
 // Main logic to check file existence and perform encryption/decryption
 (async () => {
-  console.log("ENV_ENCRYPTION_PROMPT=true detected. Running interactive .env protection.");
+  if (hasEnvPassword) {
+    console.log("PASSWORD env var detected. Running .env protection with environment password.");
+  } else {
+    console.log("ENV_ENCRYPTION_PROMPT=true detected. Running interactive .env protection.");
+  }
   const envExists = fs.existsSync(".env");
   const envEncExists = fs.existsSync(".env.enc");
 
   if (envExists && !envEncExists) {
     // If .env exists but .env.enc does not, encrypt .env
     console.log(".env exists but .env.enc does not. Encrypting .env...");
-    const password = await promptPassword("Enter password to encrypt .env: ");
+    const password = hasEnvPassword
+      ? envPassword
+      : await promptPassword("Enter password to encrypt .env: ");
     await encryptFile(password);
   } else if (envEncExists && !envExists) {
     // If .env.enc exists but .env does not, decrypt .env.enc
     console.log(".env.enc exists but .env does not. Decrypting .env.enc...");
-    const password = await promptPassword(
-      "Enter password to decrypt .env.enc: "
-    );
+    const password = hasEnvPassword
+      ? envPassword
+      : await promptPassword("Enter password to decrypt .env.enc: ");
     try {
       await decryptFile(password);
     } catch (error) {

@@ -12,6 +12,12 @@ If you want to run the interactive .env encryption flow during install, set:
 ENV_ENCRYPTION_PROMPT=true npm install
 ```
 
+If you want non-interactive encryption/decryption, provide a password env var:
+
+```
+PASSWORD=your_password npm install
+```
+
 Run the project locally:
 
 ```
